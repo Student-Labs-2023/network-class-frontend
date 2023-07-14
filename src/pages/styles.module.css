@@ -1,0 +1,254 @@
+.Join {
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.leftSide {
+  padding: 48px 30px 0 53px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  height: 54px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 100px;
+  position: relative;
+}
+
+.header > svg {
+  margin-right: 24px;
+}
+
+.titleApp {
+  display: inline-block;
+  align-self: flex-end;
+  margin-bottom: 7px;
+  color: #175ef1;
+  font-family: "Kino", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.enterAccount {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 122px;
+  text-align: center;
+  border-radius: 8px;
+  line-height: 1.5;
+  background: #f90;
+  box-shadow: 0px 2px 6px 0px #c5ccd5;
+  color: #fff;
+  font-family: Noto Sans;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.enterAccount:hover,
+.enterAccount:active {
+  background: #ffb240;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 708px;
+  gap: 20px;
+}
+
+.titleMotivation {
+  color: #f90;
+  font-family: Noto Sans;
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.textMotivation {
+  color: #5f6a77;
+  font-family: Noto Sans;
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 14px;
+  line-height: normal;
+}
+
+.formEnter {
+  width: 100%;
+  height: 82px;
+  display: flex;
+  flex-wrap: nowrap;
+  border-radius: 10px;
+  border: 2px solid #175ef1;
+}
+
+.formEnter > input {
+  flex: 1 1;
+  padding: 24px 0 24px 20px;
+  border-radius: 10px;
+  font-family: Noto Sans;
+  font-size: 22px;
+  font-weight: 300;
+}
+
+.formEnter > input::placeholder {
+  color: #a0afc1;
+  font-family: Noto Sans;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.formEnter > input:focus::placeholder {
+  opacity: 0;
+}
+
+.formEnter > button {
+  width: 214px;
+  color: white;
+  border-radius: 10px 8px 8px 10px;
+  padding: 24px 20px;
+  background: #175ef1;
+  text-align: center;
+  font-family: Noto Sans;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.formEnter > button:active,
+.formEnter > button:hover {
+  background: #07379d;
+}
+
+.functions {
+  display: flex;
+  justify-content: space-between;
+  gap: 27px;
+  height: 180px;
+}
+
+.function {
+  flex: 1 1;
+  padding: 20px 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex-wrap: nowrap;
+  align-items: center;
+  border-radius: 8px;
+  border: 2px solid #c5ccd5;
+}
+
+.function:hover,
+.function:active {
+  border: 2px solid #175ef1;
+  background: #f9fafe;
+  cursor: pointer;
+}
+
+.titleFunction {
+  color: #000;
+  text-align: center;
+  font-family: Noto Sans;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.descriptionFunction {
+  color: #a0afc1;
+  text-align: center;
+  font-family: Noto Sans;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.rightSide {
+  flex: 0 0;
+  height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #175ef1 0%,
+    rgba(241, 23, 193, 0.6) 66.57%,
+    #f90 100%
+  );
+}
+
+.topPattern {
+  margin-top: 50px;
+  width: 100%;
+  height: 124px;
+  margin-bottom: 40px;
+}
+
+.topPattern > svg {
+  width: 100%;
+}
+
+.bottomPattern > svg {
+  width: 100%;
+}
+
+.appearanceApp {
+  margin: 0 25px 0 25px;
+  border-radius: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.1) 95.31%
+  );
+  width: 360px;
+  height: 360px;
+  padding: 10px;
+}
+
+.appearanceApp > div {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(#6674df 0%, #fa96dc 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.monitorIcon1 {
+  position: absolute;
+  top: 69px;
+  left: 35px;
+}
+
+.monitorIcon2 {
+  position: absolute;
+  top: 150px;
+  right: 20px;
+}
+
+.monitorIcon3 {
+  position: absolute;
+  bottom: 15px;
+  right: 140px;
+}
+
+.peopleIcon {
+  width: 140px;
+  height: 137px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  padding-top: 35px;
+  text-align: center;
+}
+
+.bottomPattern {
+  margin-top: 30px;
+  width: 100%;
+  height: 97px;
+}
