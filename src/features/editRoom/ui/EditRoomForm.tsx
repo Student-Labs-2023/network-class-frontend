@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Input from '../../../shared/ui/Input';
+import SwitchToggle from '../../../shared/ui/switchToggle/SwitchToggle';
 import avatar from '../../../../public/icons/avatar.svg';
 
 const Form = styled.form`
@@ -50,6 +51,7 @@ export const EditRoomForm: React.FC = () => {
                 <img src={avatar} alt="аватар" />
             </ImageContainer>
             <Input type="text" placeholder='Введите название класса' value='математика 10 класс' />
+            <SwitchToggle/>
         </Info>
     </Form>
   )
