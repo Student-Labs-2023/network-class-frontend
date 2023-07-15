@@ -4,7 +4,7 @@ import Header from '../../widgets/layout/Header';
 import Navbar from '../../widgets/layout/Navbar';
 import RoomsList from '../../widgets/RoomsList';
 
-const Lobby: React.FC = () => {
+const LobbyAccess: React.FC = () => {
   const rooms: IRoom[] = [
     {
         id: 1,                
@@ -89,10 +89,10 @@ const Lobby: React.FC = () => {
   return (
     <>
       <Header/>
-      <Navbar activeLink='all' allLength={121}/>
+      <Navbar activeLink='access' accessLength={5}/>
       <RoomsList rooms={rooms}/>
     </>
   )
 }
 
-export default Lobby
+export default LobbyAccess

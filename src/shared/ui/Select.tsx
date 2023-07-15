@@ -8,7 +8,7 @@ const Container = styled.div`
   z-index: 1;
 
   padding: 20px 16px 16px;
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 10px                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ;
   background: var(--white);
   box-shadow: 5px 5px 10px 0px var(--grey_5);
   transition: all .3s ease;

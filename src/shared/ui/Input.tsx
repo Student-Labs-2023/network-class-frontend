@@ -11,13 +11,14 @@ const InputStyled = styled.input`
 `
 
 interface Props {
-    placeholder?: string,
-    type?: string,
+  placeholder?: string,
+  type?: string,
+  value?: string,
 }
 
-const Input: React.FC<Props> = ({ placeholder, type }) => {
+const Input: React.FC<Props> = ({ placeholder, type, value }) => {
   return (
-    <InputStyled placeholder={placeholder} type={type ? type : 'text'}/>
+    <InputStyled placeholder={placeholder} type={type ? type : 'text'} value={value}/>
   )
 }
 

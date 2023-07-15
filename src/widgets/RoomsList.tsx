@@ -1,16 +1,14 @@
 import React from 'react';
 import type { IRoom } from '../shared/api/models';
 import styled from 'styled-components';
-import roomsState from '../pages/Lobby/store/roomsListState';
-import { observer } from 'mobx-react-lite';
 import RoomCard from '../entities/room/ui/RoomCard';
-import CreateRoomForm from '../features/createRoom/ui/CreateRoomForm';
 
 const Container = styled.div`
     width: calc(1196px - 5px);
     padding-right: 5px;
     margin: 0 auto;
     max-height: 642px;
+    min-height: 542px;
 
     overflow: hidden;
     &:hover {
@@ -52,14 +50,10 @@ interface Props {
     rooms: IRoom[]
 }
 
-const RoomsList: React.FC<Props> = observer(({ rooms }) => {
+const RoomsList: React.FC<Props> = ({ rooms }) => {
 
   return (
     <Container>
-        {roomsState.state === 'my' ? 
-            <CreateRoomForm/> :
-            <></>
-        }
         <Header>
             <Head>Название</Head>
             <Head>Владелец</Head>
@@ -71,6 +65,6 @@ const RoomsList: React.FC<Props> = observer(({ rooms }) => {
         )}
     </Container>
   )
-})
+}
 
 export default RoomsList

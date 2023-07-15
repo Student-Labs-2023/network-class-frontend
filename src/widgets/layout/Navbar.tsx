@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import roomsState from '../../pages/Lobby/store/roomsListState.ts';
 import { AddRoomButton } from '../../features/AddRoom.tsx/index.ts';
 import { SearchInput } from '../../features/Search/index.ts';
 
@@ -18,7 +17,7 @@ const Left = styled.div`
     justify-content: space-between;
 `
 
-const Link = styled.button`
+const Link = styled.a`
     font-family: var(--font);
     font-size: 20px;
     font-style: normal;
@@ -37,35 +36,25 @@ const Right = styled.div`
     padding-bottom: 13px;
 `
 
-const Navbar: React.FC = () => {
-    const [activeLink, setActiveLink] = useState('all');
+interface Props {
+    activeLink: string,
+    allLength?: number,
+    accessLength?: number,
+    myLength?: number,
+}
 
-    function activateAll() {
-        roomsState.choiceAll();
-        setActiveLink(roomsState.state);
-    }
-
-    function activateAccess() {
-        roomsState.choiceAccess();
-        setActiveLink(roomsState.state);
-    }
-
-    function activateMy() {
-        roomsState.choiceMy();
-        setActiveLink(roomsState.state);
-    }
+const Navbar: React.FC<Props> = ({ activeLink, allLength, accessLength, myLength }) => {
 
     function addRoom() {
-        roomsState.choiceMy();
-        setActiveLink(roomsState.state);
+        window.location.href = '/lobby/my';
     }
 
   return (
     <Container>
         <Left>
-            <Link onClick={activateAll} style={roomsState.state === 'all' ? {borderBottom: '2px var(--blue) solid', color: 'var(--blue)'} : {}}>Все классы(121)</Link>
-            <Link onClick={activateAccess} style={roomsState.state === 'access' ? {borderBottom: '2px var(--blue) solid', color: 'var(--blue)'} : {}}>Доступные(5)</Link>
-            <Link onClick={activateMy} style={roomsState.state === 'my' ? {borderBottom: '2px var(--blue) solid', color: 'var(--blue)'} : {}}>Мои(2)</Link>
+            <Link href='/lobby' style={activeLink === 'all' ? {borderBottom: '2px var(--blue) solid', color: 'var(--blue)'} : {}}>Все классы({121})</Link>
+            <Link href='/lobby/access' style={activeLink === 'access' ? {borderBottom: '2px var(--blue) solid', color: 'var(--blue)'} : {}}>Доступные({5})</Link>
+            <Link href='/lobby/my' style={activeLink === 'my' ? {borderBottom: '2px var(--blue) solid', color: 'var(--blue)'} : {}}>Мои({2})</Link>
         </Left>
         <Right>
             <AddRoomButton onClick={addRoom} />
@@ -75,4 +64,4 @@ const Navbar: React.FC = () => {
   )
 }
 
-export default Navbar
+export default Navbar;

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import join from '../../../../public/icons/join.svg';
+
+const Path = styled.path``
 
 const Button = styled.button`
     font-family: var(--font);
@@ -18,17 +19,27 @@ const Button = styled.button`
     gap: 15px;
     border-radius: 10px;
     border: 1px solid var(--blue);
+    transition: all .3s;
+    &:hover {
+      background: var(--blue);
+      color: #fff;
+    }
+    &:hover ${Path} {
+      stroke: var(--white);
+    }
 `
 
-interface Props {
-    disabled: boolean,
-}
-
-const JoinButton = () => {
+const JoinButton: React.FC = () => {
   return (
     <Button onClick={() => {location.href="/lesson"}}>
-        Подключиться
-        <img src={join} alt="Подключиться" />
+        <p>Подключиться</p>
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g id="bracket--code-angle-programming-file-bracket">
+            <Path id="Vector" d="M7.66666 21.0001L13.807 11.1204L7.66666 1.24072" stroke="#175EF1" stroke-linecap="round" stroke-linejoin="round"/>
+            <Path id="Vector_2" d="M1 20.963L7.14035 11.0833L1 1.20361" stroke="#175EF1" stroke-linecap="round" stroke-linejoin="round"/>
+            <Path id="Vector_2_2" d="M14.8596 20.7594L21 10.8797L14.8596 1" stroke="#175EF1" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+        </svg>
     </Button>
   )
 }
