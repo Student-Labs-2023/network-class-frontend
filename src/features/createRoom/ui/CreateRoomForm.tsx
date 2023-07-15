@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Input from '../../../shared/ui/Input';
 import SwitchToggle from '../../../shared/ui/switchToggle/SwitchToggle';
+import FormButton from '../../../shared/ui/formButton/FormButton';
 import addImageIcon from '../../../../public/icons/gallery-add.svg';
 
 const Form = styled.form`
@@ -97,7 +98,7 @@ export const CreateRoomForm: React.FC = () => {
                 Ваш класс будет виден всем пользователям приложения
             </Text>
         </Center>
-        <CreateButton>Создать</CreateButton>
+        <FormButton>Создать</FormButton>
     </Form>
   )
 }
