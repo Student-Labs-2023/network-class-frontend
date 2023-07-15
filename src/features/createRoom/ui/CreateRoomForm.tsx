@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Input from '../../../shared/ui/Input';
-import SwitchToggle from './switchToggle/SwitchToggle';
+import SwitchToggle from '../../../shared/ui/switchToggle/SwitchToggle';
 import addImageIcon from '../../../../public/icons/gallery-add.svg';
 
 const Form = styled.form`
