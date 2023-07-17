@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import Input from '../../../shared/ui/Input';
+import SwitchToggle from '../../../shared/ui/switchToggle/SwitchToggle';
+import FormButton from '../../../shared/ui/formButton/FormButton';
 import avatar from '../../../../public/icons/avatar.svg';
+import deleteIcon from '../../../../public/icons/delete.svg';
 
 const Form = styled.form`
     position: relative;
@@ -50,6 +53,9 @@ export const EditRoomForm: React.FC = () => {
                 <img src={avatar} alt="аватар" />
             </ImageContainer>
             <Input type="text" placeholder='Введите название класса' value='математика 10 класс' />
+            <SwitchToggle/>
+            <FormButton>Сохранить</FormButton>
+            <button><img src={deleteIcon} alt="Удалить" /></button>
         </Info>
     </Form>
   )

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './styles.module.css';
-import openIcon from '../../../../../public/icons/open.svg';
-import closeIcon from '../../../../../public/icons/close.svg';
+import openIcon from '../../../../public/icons/open.svg';
+import closeIcon from '../../../../public/icons/close.svg';
 
 const SwitchToggle: React.FC = () => {
   const [toggleValue, setToggleValue] = useState(true);
