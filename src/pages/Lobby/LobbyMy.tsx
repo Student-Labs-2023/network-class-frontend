@@ -3,7 +3,6 @@ import type { IRoom } from '../../shared/api/models';
 import Header from '../../widgets/layout/Header';
 import Navbar from '../../widgets/layout/Navbar';
 import { CreateRoomForm } from '../../features/createRoom/index.ts';
-import { EditRoomForm } from '../../features/editRoom/index.ts';
 import RoomsList from '../../widgets/RoomsList';
 import { observer } from 'mobx-react-lite';
 import roomsFormState from './store/roomsFormState.ts';

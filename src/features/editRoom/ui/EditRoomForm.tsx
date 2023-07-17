@@ -9,7 +9,7 @@ import deleteIcon from '../../../../public/icons/delete.svg';
 const Form = styled.form`
     position: relative;
     display: flex;
-    width: calc(1240px - 52px);
+    width: calc(100% - 48px);
     justify-content: space-between;
     align-items: center;
     padding: 24px;
