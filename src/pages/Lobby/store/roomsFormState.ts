@@ -1,17 +1,17 @@
 import { makeAutoObservable } from "mobx";
 
 class FormState {
-    state = 'create';
+    state = '';
     constructor() {
         makeAutoObservable(this)
     }
 
-    openEditForm() {
-        this.state = 'edit';
-    }
-
     openCreateForm() {
         this.state = 'create';
+    }
+
+    closeCreateForm() {
+        this.state = '';
     }
 }
 

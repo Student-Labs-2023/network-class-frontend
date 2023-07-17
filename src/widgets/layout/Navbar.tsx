@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { AddRoomButton } from '../../features/AddRoom.tsx/index.ts';
 import { SearchInput } from '../../features/Search/index.ts';
+import roomsFormState from '../../pages/Lobby/store/roomsFormState.ts';
 
 const Container = styled.div`
     display: flex;
@@ -46,7 +47,7 @@ interface Props {
 const Navbar: React.FC<Props> = ({ activeLink, allLength, accessLength, myLength }) => {
 
     function addRoom() {
-        window.location.href = '/lobby/my';
+        roomsFormState.openCreateForm();
     }
 
   return (
@@ -57,7 +58,7 @@ const Navbar: React.FC<Props> = ({ activeLink, allLength, accessLength, myLength
             <Link href='/lobby/my' style={activeLink === 'my' ? {borderBottom: '2px var(--blue) solid', color: 'var(--blue)'} : {}}>Мои({2})</Link>
         </Left>
         <Right>
-            <AddRoomButton onClick={addRoom} />
+            {activeLink === 'my' ? <AddRoomButton onClick={addRoom} /> : <></>}
             <SearchInput/>
         </Right>
     </Container>

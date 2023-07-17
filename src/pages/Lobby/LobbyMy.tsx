@@ -108,9 +108,8 @@ const LobbyMy: React.FC = observer(() => {
     <>
       <Header/>
       <Navbar activeLink='my' myLength={myRooms?.length}/>
-      {roomsFormState.state === 'create' ? 
-        <CreateRoomForm/> :
-        <EditRoomForm/>
+      {roomsFormState.state === 'create' ? <CreateRoomForm/> :
+        <></>
       }
       {myRooms ? <RoomsList rooms={myRooms}/> : <>Loading...</>}
     </>
