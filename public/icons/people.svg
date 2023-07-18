@@ -1,0 +1,26 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="66"
+  height="66"
+  viewBox="0 0 66 66"
+  fill="none"
+>
+  <path
+    d="M11 63.25C11 51.15 20.9 41.25 33 41.25C45.1 41.25 55 51.15 55 63.25"
+    stroke="white"
+    stroke-opacity="0.5"
+    stroke-width="2"
+    stroke-miterlimit="10"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M33 41.25C43.6315 41.25 52.25 32.6315 52.25 22C52.25 11.3685 43.6315 2.75 33 2.75C22.3685 2.75 13.75 11.3685 13.75 22C13.75 32.6315 22.3685 41.25 33 41.25Z"
+    stroke="white"
+    stroke-opacity="0.5"
+    stroke-width="2"
+    stroke-miterlimit="10"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

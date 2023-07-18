@@ -1,0 +1,37 @@
+name: "Deploy application"
+
+on:
+  push:
+    - "master"
+    - "develop"
+  workflow_dispatch: ~
+
+env:
+  NODE_VERSION: "20.x"
+  WRANGLER_VERSION: "3"
+  PROJECT_NAME: "network-class"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: "Checkout the master branch"
+        uses: actions/checkout@v3
+
+      - name: "Install node.js"
+        uses: actions/setup-node@v3
+        with:
+          node-version: $NODE_VERSION
+      
+      - name: "Build an application"
+        run: make build
+      
+      - name: "Deploy application on Cloudflare Pages"
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: $PROJECT_CLASS
+          directory: ./dist
+          wranglerVersion: $WRANGLER_VERSION
