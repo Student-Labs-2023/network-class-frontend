@@ -3,7 +3,7 @@ name: "Deploy application"
 on:
   push:
     - "master"
-    - "dev"
+    - "develop"
   workflow_dispatch: ~
 
 env:
