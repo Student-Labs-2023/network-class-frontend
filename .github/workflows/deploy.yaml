@@ -28,6 +28,6 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: ${{ env.PROJECT_NAME }}
+          projectName: "network-class"
           directory: ./dist
-          wranglerVersion: ${{ env.WRANGLER_VERSION }}
+          wranglerVersion: "3"
