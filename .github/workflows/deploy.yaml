@@ -2,8 +2,9 @@ name: "Deploy application"
 
 on:
   push:
-    - "master"
-    - "develop"
+    branches:
+      - "master"
+      - "develop"
   workflow_dispatch: ~
 
 env:
