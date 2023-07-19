@@ -1,7 +1,10 @@
 import React from 'react';
 import type { IRoom } from '../shared/api/models';
 import styled from 'styled-components';
+import { observer } from 'mobx-react-lite';
+import roomsState from '../pages/Lobby/store/roomsState';
 import RoomCard from '../entities/room/ui/RoomCard';
+import { EditRoomForm } from '../features/editRoom';
 
 const Container = styled.div`
     width: calc(1196px - 5px);
@@ -50,7 +53,7 @@ interface Props {
     rooms: IRoom[]
 }
 
-const RoomsList: React.FC<Props> = ({ rooms }) => {
+const RoomsList: React.FC<Props> = observer(({ rooms }) => {
 
   return (
     <Container>
@@ -60,11 +63,21 @@ const RoomsList: React.FC<Props> = ({ rooms }) => {
             <Head>Статус</Head>
             <Head>Доступ</Head>
         </Header>
-        {rooms.map(room => 
-            <RoomCard room={room} key={room.id}/>    
-        )}
+        {roomsState.state === 'edit' ?
+            <>
+                {rooms.map(room => 
+                    <EditRoomForm/>   
+                )}
+            </>
+            :
+            <>
+                {rooms.map(room => 
+                    <RoomCard room={room} key={room.id}/>    
+                )}
+            </>
+        }
     </Container>
   )
-}
+})
 
 export default RoomsList
