@@ -12,7 +12,7 @@ const functions: IFunction[] = [
     iconActive: createClassActive,
     title: "Новый класс",
     description: "Создать свой класс и провести занятие онлайн",
-    link: "/lobby",
+    link: "/lobby/my",
   },
   {
     icon: search,

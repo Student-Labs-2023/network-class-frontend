@@ -1,9 +1,8 @@
 .Join {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: space-between;
   flex-wrap: nowrap;
-  overflow: hidden;
 }
 
 .leftSide {
@@ -31,7 +30,7 @@
   display: inline-block;
   align-self: flex-end;
   margin-bottom: 7px;
-  color: #175ef1;
+  color: var(--blue);
   font-family: "Kino", sans-serif;
   font-size: 24px;
   font-weight: 400;
@@ -46,14 +45,14 @@
 
 .titleMotivation {
   color: #f90;
-  font-family: Noto Sans;
+  font-family: var(--font);
   font-size: 36px;
   font-weight: 600;
 }
 
 .textMotivation {
-  color: #5f6a77;
-  font-family: Noto Sans;
+  color: var(--grey_1);
+  font-family: var(--font);
   font-size: 20px;
   font-weight: 400;
   margin-bottom: 14px;
@@ -62,7 +61,7 @@
 
 .rightSide {
   flex: 0 0;
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(
     135deg,
     #175ef1 0%,

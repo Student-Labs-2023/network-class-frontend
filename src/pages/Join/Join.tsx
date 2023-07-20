@@ -1,14 +1,14 @@
 import React from "react";
 import styles from "./styles.module.css";
-import logo from "../../public/icons/logo.svg";
-import topPattern from "../../public/icons/top-pattern.svg";
-import bottomPattern from "../../public/icons/bottom-pattern.svg";
-import monitor from "../../public/icons/monitor.svg";
-import people from "../../public/icons/people.svg";
-import { EnterAccountButton } from "../features/EnterAccount/index.ts";
-import { EnterClassForm } from "../features/EnterClass/index.ts";
-import FunctionsList from "../widgets/FunctionsList/FunctionsList.tsx";
-import functions from "../widgets/FunctionsList/functionsObject.tsx";
+import logo from "../../../public/icons/logo.svg";
+import topPattern from "../../../public/icons/top-pattern.svg";
+import bottomPattern from "../../../public/icons/bottom-pattern.svg";
+import monitor from "../../../public/icons/monitor.svg";
+import people from "../../../public/icons/people.svg";
+import { EnterAccountButton } from "../../features/EnterAccount/index.ts";
+import { EnterClassForm } from "../../features/EnterClass/index.ts";
+import FunctionsList from "../../widgets/FunctionsList/FunctionsList.tsx";
+import functions from "../../widgets/FunctionsList/functionsObject.tsx";
 
 const Join: React.FC = () => {
   return (
