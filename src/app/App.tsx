@@ -29,7 +29,7 @@ const App: React.FC = () => {
           <Route path="/lobby" element={<Lobby />} />
           <Route path="/lobby/access" element={<LobbyAccess />} />
           <Route path="/lobby/my" element={<LobbyMy />} />
-          <Route path="/lesson" element={<CallPage />} />
+          <Route path="/lesson/:id" element={<CallPage />} />
         </Routes>
       )}
     </>

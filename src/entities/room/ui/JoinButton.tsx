@@ -29,11 +29,15 @@ const Button = styled.button`
   }
 `;
 
-const JoinButton: React.FC = () => {
+interface Props {
+  href: number,
+}
+
+const JoinButton: React.FC<Props> = ({ href }) => {
   return (
     <Button
       onClick={() => {
-        location.href = "/lesson";
+        location.href = `/lesson/${href}`;
       }}
     >
       <p>Подключиться</p>

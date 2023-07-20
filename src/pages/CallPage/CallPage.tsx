@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import Header from "../../widgets/layout/Header";
 import { styled } from "styled-components";
 import { BackButton } from "../../features/Back";
@@ -44,6 +45,10 @@ const CallPage: React.FC = () => {
     ["qqqqqq", "qvvhhhhhhhhhrrrrrrrrr", "rr"],
     [],
   ];
+
+  const {id} = useParams();
+
+  console.log(id);
 
   return (
     <Page>

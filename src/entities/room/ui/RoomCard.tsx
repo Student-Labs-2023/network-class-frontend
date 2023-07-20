@@ -110,7 +110,7 @@ const RoomCard: React.FC<Props> = ({ room }) => {
         <img src={callDisabled} alt="недоступен" />
       )}
       <Access>
-        <JoinButton />
+        <JoinButton href={room.id}/>
         <Tooltip active={tooltipActive}>
           <Button onClick={copyLink}>
             <svg
