@@ -3,7 +3,6 @@ import type { IRoom } from '../../shared/api/models';
 import Header from '../../widgets/layout/Header';
 import Navbar from '../../widgets/layout/Navbar';
 import { CreateRoomForm } from '../../features/createRoom/index.ts';
-import { EditRoomForm } from '../../features/editRoom/index.ts';
 import RoomsList from '../../widgets/RoomsList';
 import { observer } from 'mobx-react-lite';
 import roomsFormState from './store/roomsFormState.ts';
@@ -108,9 +107,8 @@ const LobbyMy: React.FC = observer(() => {
     <>
       <Header/>
       <Navbar activeLink='my' myLength={myRooms?.length}/>
-      {roomsFormState.state === 'create' ? 
-        <CreateRoomForm/> :
-        <EditRoomForm/>
+      {roomsFormState.state === 'create' ? <CreateRoomForm/> :
+        <></>
       }
       {myRooms ? <RoomsList rooms={myRooms}/> : <>Loading...</>}
     </>
