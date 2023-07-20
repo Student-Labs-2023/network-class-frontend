@@ -70,11 +70,11 @@ const Navbar: React.FC<Props> = ({ activeLink, allLength, accessLength, myLength
             <Link href='/lobby/my' style={activeLink === 'my' ? {borderBottom: '2px var(--blue) solid', color: 'var(--blue)'} : {}}>Мои({2})</Link>
         </Left>
         <Right>
-            {activeLink === 'my' ? 
+            {activeLink === 'my' ?
                 <>
                     <AddRoomButton onClick={addRoom} />
                     <button onClick={editRooms}>изменить</button>
-                </> 
+                </>
             :
             <></>}
             <SearchInput/>
