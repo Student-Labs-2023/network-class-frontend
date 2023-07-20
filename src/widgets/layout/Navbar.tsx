@@ -4,6 +4,7 @@ import { AddRoomButton } from '../../features/AddRoom.tsx/index.ts';
 import { SearchInput } from '../../features/Search/index.ts';
 import roomsFormState from '../../pages/Lobby/store/roomsFormState.ts';
 import roomsState from '../../pages/Lobby/store/roomsState.ts';
+import editIcon from '../../../public/icons/edit.svg';
 
 const Container = styled.div`
     display: flex;
@@ -32,10 +33,24 @@ const Link = styled.a`
 
 const Right = styled.div`
     display: flex;
-    width: 360px;
+    width: 420px;
     justify-content: space-between;
     align-items: center;
     padding-bottom: 13px;
+`
+
+const EditButton = styled.button`
+    display: flex;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    background: var(--white, #FFF);
+
+    box-shadow: 0px 3px 6px 0px #E5EAF8;
 `
 
 interface Props {
@@ -73,7 +88,9 @@ const Navbar: React.FC<Props> = ({ activeLink, allLength, accessLength, myLength
         {activeLink === 'my' ? 
                 <>
                     <AddRoomButton onClick={addRoom} />
-                    <button onClick={editRooms}>изменить</button>
+                    <EditButton onClick={editRooms}>
+                        <img src={editIcon} alt='Изменить'/>
+                    </EditButton>
                 </> 
             :
             <></>}
