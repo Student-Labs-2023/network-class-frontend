@@ -37,7 +37,7 @@ const JoinButton: React.FC<Props> = ({ href }) => {
   return (
     <Button
       onClick={() => {
-        location.href = `/lesson/${href}`;
+        location.href = `/joinlesson/${href}`;
       }}
     >
       <p>Подключиться</p>
