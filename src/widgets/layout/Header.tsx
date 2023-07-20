@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Select from "../../shared/ui/Select";
 import { LogoutButton } from "../../features/logout/index.ts";
 import avatarIcon from "../../../public/icons/avatar.svg";
+import logo from "../../../public/icons/logo.svg";
 import selectIcon from "../../../public/icons/select.svg";
 import settingsIcon from "../../../public/icons/setting-mini.svg";
 import logoutIcon from "../../../public/icons/logout.svg";
@@ -10,12 +11,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const Container = styled.div`
   display: flex;
-  min-width: 98vw;
+  min-width: 100%;
   height: 92px;
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  padding: 0 92px 0 55px;
+  padding: 0 92px 0 80px;
 `;
 
 const Left = styled.div``;
@@ -26,7 +27,7 @@ const Logo = styled.a`
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
-  line-height: normal;
+  line-height: 1.8;
 
   color: var(--blue);
 `;
@@ -74,6 +75,9 @@ const Header: React.FC = () => {
   return (
     <Container>
       <Left>
+        <a href="/" style={{ marginRight: "24px" }}>
+          <img src={logo} alt="Логотип" />
+        </a>
         <Logo href="/">Сетевой учебный класс</Logo>
       </Left>
       <Right>
