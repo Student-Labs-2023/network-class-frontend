@@ -96,7 +96,7 @@ const RoomCard: React.FC<Props> = ({ room }) => {
     }
 
     function openEditForm() {
-
+        
     }
 
     console.log(selectActive);
