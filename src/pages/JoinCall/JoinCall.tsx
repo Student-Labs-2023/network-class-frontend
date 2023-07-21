@@ -40,6 +40,8 @@ type State =
 const JoinCall: React.FC = () => {
   const [stateEnter, setStateEnter] = useState<State>("Занятие началось");
 
+  console.log(setStateEnter);
+
   const devices: string[][] = [
     ["hghghg", "jhhhhhhhh"],
     ["qqqqqq", "qvvhhhhhhhhhrrrrrrrrr", "rr"],

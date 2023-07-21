@@ -7,7 +7,6 @@ import avatar from "../../../../public/icons/avatar.svg";
 import callActive from "../../../../public/icons/call-active.svg";
 import callDisabled from "../../../../public/icons/call-disabled.svg";
 import { useAuth0 } from "@auth0/auth0-react";
-import roomsFormState from "../../../pages/Lobby/store/roomsFormState";
 import menuIcon from "../../../../public/icons/points.svg";
 import Select from "../../../shared/ui/Select";
 
