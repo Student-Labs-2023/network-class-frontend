@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import styled from 'styled-components';
 import { AddRoomButton } from '../../features/AddRoom.tsx/index.ts';
 import { SearchInput } from '../../features/Search/index.ts';
@@ -60,7 +60,7 @@ interface Props {
     myLength?: number,
 }
 
-const Navbar: React.FC<Props> = ({ activeLink, allLength, accessLength, myLength }) => {
+const Navbar: React.FC<Props> = ({ activeLink, /*allLength, accessLength, myLength*/ }) => {
 
     function addRoom() {
         roomsFormState.openCreateForm();
