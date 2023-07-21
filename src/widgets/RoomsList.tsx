@@ -7,7 +7,8 @@ import RoomCard from '../entities/room/ui/RoomCard';
 import { EditRoomForm } from '../features/editRoom';
 
 const Container = styled.div`
-    width: calc(1196px - 5px);
+    width: 100%;
+    max-width: 1196px;
     padding-right: 5px;
     margin: 0 auto;
     max-height: 642px;
