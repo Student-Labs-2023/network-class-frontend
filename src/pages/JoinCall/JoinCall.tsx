@@ -50,7 +50,9 @@ const JoinCall: React.FC = () => {
 
   const {id} = useParams();
 
-  console.log(id);
+  function joinLesson() {
+    location.href = `/lesson/${id}`;
+  }
 
   return (
     <Page>
@@ -77,7 +79,7 @@ const JoinCall: React.FC = () => {
             <div className={styles.owner}>Морозов Антон Дмитриевич</div>
             <div className={styles.count}>0 участников</div>
             <div style={{ textAlign: "center" }}>
-              <EnterButton>Присоединиться</EnterButton>
+              <EnterButton onClick={joinLesson}>Присоединиться</EnterButton>
               {stateEnter === "Занятие началось" ||
               stateEnter === "Дождитесь разрешения на подключение" ? (
                 <div className={styles.stateOn}>{stateEnter}</div>
