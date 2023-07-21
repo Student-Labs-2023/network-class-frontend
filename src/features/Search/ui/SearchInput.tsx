@@ -4,7 +4,7 @@ import searchIcon from '../../../../public/icons/search.svg';
 
 const Container = styled.div`
     display: flex;
-    width: 300px;
+    width: 280px;
     height: 46px;
     padding: 10px;
     align-items: center;
