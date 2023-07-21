@@ -66,7 +66,7 @@ const RoomsList: React.FC<Props> = observer(({ rooms }) => {
         {roomsState.state === 'edit' ?
             <>
                 {rooms.map(room => 
-                    <EditRoomForm/>   
+                    <EditRoomForm key={room.id}/>   
                 )}
             </>
             :
