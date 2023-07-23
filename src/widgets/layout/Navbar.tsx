@@ -34,9 +34,9 @@ const Link = styled.a`
 const Right = styled.div`
     display: flex;
     width: 420px;
-    justify-content: space-between;
     align-items: center;
     padding-bottom: 13px;
+    gap: 16px;
 `
 
 const EditButton = styled.button`
@@ -46,7 +46,6 @@ const EditButton = styled.button`
     padding: 10px;
     justify-content: center;
     align-items: center;
-    gap: 10px;
     border-radius: 10px;
     background: var(--white, #FFF);
 
@@ -85,15 +84,10 @@ const Navbar: React.FC<Props> = ({ activeLink, /*allLength, accessLength, myLeng
             <Link href='/lobby/my' style={activeLink === 'my' ? {borderBottom: '2px var(--blue) solid', color: 'var(--blue)'} : {}}>Мои({2})</Link>
         </Left>
         <Right>
-        {activeLink === 'my' ? 
-                <>
-                    <AddRoomButton onClick={addRoom} />
-                    <EditButton onClick={editRooms}>
-                        <img src={editIcon} alt='Изменить'/>
-                    </EditButton>
-                </> 
-            :
-            <></>}
+            <AddRoomButton onClick={addRoom} />
+            <EditButton onClick={editRooms}>
+                <img src={editIcon} alt='Изменить'/>
+            </EditButton>
             <SearchInput/>
         </Right>
     </Container>

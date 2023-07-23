@@ -20,10 +20,11 @@ const Button = styled.button`
 interface Props {
   children?: string;
   type?: "button" | "submit" | "reset";
+  onClick?: () => void;
 }
 
-const EnterButton: React.FC<Props> = ({ type, children }) => {
-  return <Button type={type ? type : "submit"}>{children}</Button>;
+const EnterButton: React.FC<Props> = ({ type, children, onClick }) => {
+  return <Button type={type ? type : "submit"} onClick={onClick}>{children}</Button>;
 };
 
 export default EnterButton;

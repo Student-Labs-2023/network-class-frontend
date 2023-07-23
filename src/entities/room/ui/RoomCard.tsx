@@ -13,15 +13,15 @@ import Select from "../../../shared/ui/Select";
 const Container = styled.div`
   position: relative;
   display: flex;
-  width: calc(100% - 48px);
+  width: calc(100% - 20px);
   padding: 24px;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 18px;
 
   border-radius: 10px;
   background: var(--white);
   box-shadow: 0px 0px 8px 0px #e5eaf8;
+  margin: 0 auto 18px;
 `;
 
 const Info = styled.div`
