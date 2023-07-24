@@ -10,7 +10,7 @@ export const Call: React.FC = () => {
   return (
     <>
       <JitsiMeeting
-        domain='167.172.169.76'
+        domain="jitsi.fantast.dev"
         roomName="MySambeauAPP"
         configOverwrite={{
           startWithAudioMuted: true,
