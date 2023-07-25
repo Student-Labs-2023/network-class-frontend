@@ -3,6 +3,7 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: nowrap;
+  background-color: var(--white);
 }
 
 .leftSide {

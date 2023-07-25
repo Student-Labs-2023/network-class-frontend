@@ -11,6 +11,7 @@ const Container = styled.div`
   align-items: center;
   margin: 0 auto;
   padding: 0 92px 0 80px;
+  background-color: var(--white);
 `;
 
 const Left = styled.div``;

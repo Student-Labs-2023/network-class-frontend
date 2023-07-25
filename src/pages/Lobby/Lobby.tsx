@@ -95,4 +95,4 @@ const Lobby: React.FC = () => {
   )
 }
 
-export default Lobby
+export default Lobby;
