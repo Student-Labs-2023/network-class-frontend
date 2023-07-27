@@ -1,5 +1,4 @@
 // import React from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { AddRoomButton } from '../../features/AddRoom.tsx/index.ts';
 import { SearchInput } from '../../features/Search/index.ts';
