@@ -63,7 +63,7 @@ let Path = styled.path``;
 
 let Button = styled.button`
   transition: all 0.3s ease;
-  &:hover ${Path} {
+  &:hover path {
     stroke: var(--blue);
   }
 `;
@@ -109,7 +109,7 @@ const RoomCard: React.FC<Props> = ({ room }) => {
         <img src={callDisabled} alt="недоступен" />
       )}
       <Access>
-        <JoinButton href={room.id}/>
+        <JoinButton href={room.id} />
         <Tooltip active={tooltipActive}>
           <Button onClick={copyLink}>
             <svg

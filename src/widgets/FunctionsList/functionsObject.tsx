@@ -13,6 +13,9 @@ const functions: IFunction[] = [
     title: "Новый класс",
     description: "Создать свой класс и провести занятие онлайн",
     link: "/lobby/my",
+    onClick: () => {
+      localStorage.setItem("trigger", "create");
+    },
   },
   {
     icon: search,
