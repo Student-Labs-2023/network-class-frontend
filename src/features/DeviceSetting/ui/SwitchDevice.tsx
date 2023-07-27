@@ -19,13 +19,25 @@ const Icon = styled.img`
 interface Props {
   iconOn: string;
   iconOff: string;
+  isActive: boolean;
+  onClick: () => void;
 }
 
-export const SwitchDevice: React.FC<Props> = ({ iconOn, iconOff }) => {
-  const [active, setActive] = useState(false);
+export const SwitchDevice: React.FC<Props> = ({
+  iconOn,
+  iconOff,
+  isActive,
+  onClick,
+}) => {
+  const [active, setActive] = useState(isActive);
 
   return (
-    <Container onClick={() => setActive(!active)}>
+    <Container
+      onClick={() => {
+        setActive(!active);
+        onClick();
+      }}
+    >
       {active ? <Icon src={iconOn} /> : <Icon src={iconOff} />}
     </Container>
   );

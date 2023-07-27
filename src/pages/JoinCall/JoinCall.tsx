@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../../widgets/layout/Header";
 import { styled } from "styled-components";
@@ -9,6 +9,7 @@ import styles from "./styles.module.css";
 import { CopyLink } from "../../features/Copy";
 import EnterButton from "../../shared/ui/EnterButton";
 import { SelectDevice } from "../../features/DeviceSetting";
+import _ from "lodash";
 
 const Page = styled.div`
   display: flex;
@@ -37,18 +38,62 @@ type State =
   | "Владельца класса нет в сети"
   | "Ваш запрос на подключение отклонен";
 
+interface IDevices {
+  videoInput: string[];
+  audioInput: string[];
+  audioOutput: string[];
+}
+
+let devicesObj: IDevices;
+let intervalSelect: NodeJS.Timer;
+
 const JoinCall: React.FC = () => {
   const [stateEnter, setStateEnter] = useState<State>("Занятие началось");
+  const [devices, setDevices] = useState<IDevices>(devicesObj);
+  const [isLoading, setLoading] = useState(true);
 
-  console.log(setStateEnter);
+  function getDevices() {
+    devicesObj = {
+      videoInput: [],
+      audioInput: [],
+      audioOutput: [],
+    };
+    navigator.mediaDevices
+      .enumerateDevices()
+      .then(function (devices) {
+        devices.forEach(function (device) {
+          if (
+            device.kind === "videoinput" &&
+            !device.label.includes("По умолчанию")
+          )
+            devicesObj.videoInput.push(device.label);
+          else if (
+            device.kind === "audioinput" &&
+            !device.label.includes("По умолчанию")
+          )
+            devicesObj.audioInput.push(device.label);
+          else if (
+            device.kind === "audiooutput" &&
+            !device.label.includes("По умолчанию")
+          )
+            devicesObj.audioOutput.push(device.label);
+        });
+        _.isEqual(devices, devicesObj) ? "" : setDevices(devicesObj);
+        setLoading(false);
+      })
+      .catch(function (err) {
+        console.log(err.name + ": " + err.message);
+      });
+  }
 
-  const devices: string[][] = [
-    ["hghghg", "jhhhhhhhh"],
-    ["qqqqqq", "qvvhhhhhhhhhrrrrrrrrr", "rr"],
-    [],
-  ];
+  useEffect(() => {
+    intervalSelect = setInterval(getDevices, 2500);
+    return () => {
+      clearInterval(intervalSelect);
+    };
+  }, []);
 
-  const {id} = useParams();
+  const { id } = useParams();
 
   function joinLesson() {
     location.href = `/lesson/${id}`;
@@ -65,9 +110,19 @@ const JoinCall: React.FC = () => {
               <CheckDevices />
             </div>
             <div className={styles.settingsVideo}>
-              <SelectDevice title="МИКРОФОН" list={devices[0]} />
-              <SelectDevice title="КАМЕРА" list={devices[1]} />
-              <SelectDevice title="ЗВУК" list={devices[2]} />
+              {isLoading ? (
+                <>
+                  <SelectDevice title="МИКРОФОН" list={["Загрузка..."]} />
+                  <SelectDevice title="КАМЕРА" list={["Загрузка..."]} />
+                  <SelectDevice title="ЗВУК" list={["Загрузка..."]} />
+                </>
+              ) : (
+                <>
+                  <SelectDevice title="МИКРОФОН" list={devices.audioInput} />
+                  <SelectDevice title="КАМЕРА" list={devices.videoInput} />
+                  <SelectDevice title="ЗВУК" list={devices.audioOutput} />
+                </>
+              )}
             </div>
           </div>
           <div className={styles.info}>
