@@ -52,6 +52,8 @@ const JoinCall: React.FC = () => {
   const [devices, setDevices] = useState<IDevices>(devicesObj);
   const [isLoading, setLoading] = useState(true);
 
+  console.log(setStateEnter);
+
   function getDevices() {
     devicesObj = {
       videoInput: [],

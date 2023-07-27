@@ -12,6 +12,7 @@
   border-radius: 10px;
   box-shadow: 0px 0px 2px 0px var(--grey_4);
   overflow: hidden;
+  background: var(--grey-5, #d5dee8);
   position: relative;
 }
 

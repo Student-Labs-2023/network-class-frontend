@@ -9,6 +9,17 @@ import { SwitchDevice } from "../../features/DeviceSetting";
 
 const Container = styled.div``;
 
+const Text = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+  font-family: var(--font);
+  font-size: 25px;
+  font-weight: 400;
+`;
+
 const SwitchBlock = styled.div`
   display: flex;
   gap: 20px;
@@ -50,13 +61,16 @@ const CheckDevices: React.FC = () => {
           height={100 + "%"}
         />
       ) : (
-        <Webcam
-          audio={microphone}
-          ref={webcam}
-          mirrored={true}
-          width={0}
-          height={0}
-        />
+        <>
+          <Webcam
+            audio={microphone}
+            ref={webcam}
+            mirrored={true}
+            width={0}
+            height={0}
+          />
+          <Text>Камера выключена</Text>
+        </>
       )}
       <SwitchBlock>
         <SwitchDevice
