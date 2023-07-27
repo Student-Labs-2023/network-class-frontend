@@ -36,6 +36,7 @@ const Selected = styled.div`
   font-family: var(--font);
   font-size: 18px;
   font-weight: 400;
+  width: 214px;
 `;
 
 const Icon = styled.img`

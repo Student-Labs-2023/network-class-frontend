@@ -1,4 +1,5 @@
 // import React from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { AddRoomButton } from '../../features/AddRoom.tsx/index.ts';
 import { SearchInput } from '../../features/Search/index.ts';
@@ -63,7 +64,12 @@ interface Props {
 const Navbar: React.FC<Props> = ({ activeLink, /*allLength, accessLength, myLength*/ }) => {
 
     function addRoom() {
-        roomsFormState.openCreateForm();
+        const currentUrl = window.location.href;
+        if (currentUrl !== "http://localhost:5173/lobby/my") {
+            window.location.href = '/lobby/my';
+            roomsFormState.openCreateForm();
+        }
+        roomsFormState.openCreateForm();    
     }
 
     function editRooms() {
