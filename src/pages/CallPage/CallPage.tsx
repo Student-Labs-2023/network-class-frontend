@@ -5,9 +5,10 @@ import ControllersWrapper from '../../widgets/layout/ControllersWrapper';
 import { MicrophoneController } from '../../features/MicrophoneController';
 import { CameraController } from '../../features/CameraController';
 import { RecordController } from '../../features/RecordController';
-import { LeaveCall } from '../../features/LeaveCall';
 import { HandController } from '../../features/HandController/ui/HandController';
 import { ScreenController } from '../../features/ScreenController';
+import { MenuController } from '../../features/ControllersMenu';
+import { LeaveCall } from '../../features/LeaveCall';
 
 const Left = styled.div`
   display: flex;
@@ -34,7 +35,7 @@ const CallPage: React.FC = () => {
           <HandController/>
           <ScreenController/>
           <RecordController/>
-          <></>
+          <MenuController/>
         </Center>
         <LeaveCall/>
       </ControllersWrapper>
