@@ -7,6 +7,7 @@ import { CameraController } from '../../features/CameraController';
 import { RecordController } from '../../features/RecordController';
 import { LeaveCall } from '../../features/LeaveCall';
 import { HandController } from '../../features/HandController/ui/HandController';
+import { ScreenController } from '../../features/ScreenController';
 
 const Left = styled.div`
   display: flex;
@@ -31,7 +32,7 @@ const CallPage: React.FC = () => {
         </Left>
         <Center>
           <HandController/>
-          <></>
+          <ScreenController/>
           <RecordController/>
           <></>
         </Center>
