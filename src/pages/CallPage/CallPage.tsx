@@ -4,6 +4,7 @@ import { Call } from '../../features/Call';
 import ControllersWrapper from '../../widgets/layout/ControllersWrapper';
 import { MicrophoneController } from '../../features/MicrophoneController';
 import { CameraController } from '../../features/CameraController';
+import { RecordController } from '../../features/RecordController';
 import { LeaveCall } from '../../features/LeaveCall';
 
 const Left = styled.div`
@@ -27,7 +28,9 @@ const CallPage: React.FC = () => {
           <MicrophoneController/>
           <CameraController/>
         </Left>
-        <Center></Center>
+        <Center>
+          <RecordController/>
+        </Center>
         <LeaveCall/>
       </ControllersWrapper>
     </div>
