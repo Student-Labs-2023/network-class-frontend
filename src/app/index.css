@@ -46,7 +46,7 @@ body {
 }
 
 body {
-  background-color: #F9FAFE;
+  background-color: var(--bg);
 }
 
 input,

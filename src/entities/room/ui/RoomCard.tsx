@@ -108,7 +108,7 @@ const RoomCard: React.FC<Props> = ({ room }) => {
       ) : (
         <img src={callDisabled} alt="недоступен" />
       )}
-      <Access>
+      <Access style={room.owner === user?.name ? {width: "249px"} : {}} >
         <JoinButton href={room.id} />
         <Tooltip active={tooltipActive}>
           <Button onClick={copyLink}>
@@ -148,19 +148,19 @@ const RoomCard: React.FC<Props> = ({ room }) => {
             </svg>
           </Button>
         </Tooltip>
+        {room.owner === user?.name ? (
+          <>
+            <button onClick={changeSelect}>
+              <img src={menuIcon} alt="меню" />
+            </button>
+            <Select active={selectActive}>
+              <button onClick={openEditForm}>изменить</button>
+            </Select>
+          </>
+        ) : (
+          <></>
+        )}
       </Access>
-      {room.owner === user?.name ? (
-        <>
-          <button onClick={changeSelect}>
-            <img src={menuIcon} alt="меню" />
-          </button>
-          <Select active={selectActive}>
-            <button onClick={openEditForm}>изменить</button>
-          </Select>
-        </>
-      ) : (
-        <></>
-      )}
     </Container>
   );
 };
