@@ -2,6 +2,7 @@ import React from 'react';
 import { Call } from '../../features/Call';
 import ControllersWrapper from '../../widgets/layout/ControllersWrapper';
 import { MicrophoneController } from '../../features/MicrophoneController';
+import { LeaveCall } from '../../features/LeaveCall';
 
 const CallPage: React.FC = () => {
   return (
@@ -12,7 +13,7 @@ const CallPage: React.FC = () => {
           <MicrophoneController/>
         </div>
         <div></div>
-        <div></div>
+        <LeaveCall/>
       </ControllersWrapper>
     </div>
   )
