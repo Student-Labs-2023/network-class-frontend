@@ -22,7 +22,7 @@ export const Call: React.FC = () => {
           prejoinPageEnabled: false // If false: Auto join
         }}
         interfaceConfigOverwrite={{
-          DISABLE_JOIN_LEAVE_NOTIFICATIONS: true
+          DISABLE_JOIN_LEAVE_NOTIFICATIONS: false
         }}
         getIFrameRef={(iframeRef) => {
           iframeRef.style.height = "100vh";
