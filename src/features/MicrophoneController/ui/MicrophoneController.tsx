@@ -1,16 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-
-const Controller = styled.button`
-    display: flex;
-    width: 46px;
-    height: 46px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-    background: var(--white);
-    box-shadow: 0px 0px 2px 0px #C5CCD5;
-`
+import ControllerLayout from '../../../widgets/layout/ControllerLayout';
 
 export const MicrophoneController: React.FC = () => {
     const [active, setActive] = useState(true);
@@ -20,7 +9,7 @@ export const MicrophoneController: React.FC = () => {
     }
 
   return (
-    <Controller onClick={changeActive}>
+    <ControllerLayout onClick={changeActive}>
         {active ? 
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="26" viewBox="0 0 22 26" fill="none">
                 <path d="M10.8182 1C7.76365 1 5.36365 3.4 5.36365 6.45455V10.8182C5.36365 13.8727 7.76365 16.2727 10.8182 16.2727C13.8727 16.2727 16.2727 13.8727 16.2727 10.8182V6.45455C16.2727 3.4 13.8727 1 10.8182 1Z" stroke="#5F6A77" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -38,6 +27,6 @@ export const MicrophoneController: React.FC = () => {
                 <path d="M1 25L25 1" stroke="#F95A39" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         }   
-    </Controller>
+    </ControllerLayout>
   )
 }
