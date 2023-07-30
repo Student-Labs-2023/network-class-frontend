@@ -1,5 +1,5 @@
-import React from 'react';
-import { Create } from '../model/create';
+import React, { useState } from 'react';
+import { CreateThunk } from '../model';
 import styled from 'styled-components';
 import LobbyFormLayout from '../../../widgets/layout/LobbyFormLayout';
 import Input from '../../../shared/ui/Input';
@@ -46,17 +46,26 @@ const Text = styled.p`
 `
 
 export const CreateRoomForm: React.FC = () => {
+    const [title, setTitle] = useState('');
+    const [isPublic, setIsPublic] = useState(true);
+
+    function create(event: any) {
+        CreateThunk(event, title, isPublic);
+    }
+
+    
+
   return (
     <LobbyFormLayout>
-        <Form onSubmit={Create}>
+        <Form onSubmit={create}>
             <Info>
                 <ImageContainer>
                     <img src={addImageIcon} alt="установить аватар" />
                 </ImageContainer>
-                <Input type="text" placeholder='Введите название класса' />
+                <Input type="text" placeholder='Введите название класса' value={title} onChange={(e) => setTitle(e.target.value)}/>
             </Info>
             <Center>
-                <SwitchToggle/>
+                <SwitchToggle value={isPublic} onClick={() => setIsPublic(!isPublic)}/>
                 <Text>
                     Ваш класс будет виден всем пользователям приложения
                 </Text>

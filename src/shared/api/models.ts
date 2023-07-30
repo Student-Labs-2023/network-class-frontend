@@ -1,8 +1,11 @@
 export interface IRoom {
   id: number;
   title: string;
+  public: boolean;
   owner: string;
-  isActive: boolean;
+  isPublic: boolean;
+  url: string,
+  photo_url: string,
 }
 
 export interface IFunction {
