@@ -3,11 +3,8 @@ import styled from 'styled-components';
 
 const Container = styled.form`
     position: relative;
-    display: flex;
     width: calc(100% - 20px);
     max-width: 1196px;
-    justify-content: space-between;
-    align-items: center;
     padding: 24px;
     border-radius: 10px;
     background: var(--white);

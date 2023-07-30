@@ -6,6 +6,13 @@ import SwitchToggle from '../../../shared/ui/switchToggle/SwitchToggle';
 import FormButton from '../../../shared/ui/formButton/FormButton';
 import addImageIcon from '../../../../public/icons/gallery-add.svg';
 
+const Form = styled.form`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+`
+
 const Info = styled.div`
     display: flex;
     gap: 24px;
@@ -40,19 +47,21 @@ const Text = styled.p`
 export const CreateRoomForm: React.FC = () => {
   return (
     <LobbyFormLayout>
-        <Info>
-            <ImageContainer>
-                <img src={addImageIcon} alt="установить аватар" />
-            </ImageContainer>
-            <Input type="text" placeholder='Введите название класса' />
-        </Info>
-        <Center>
-            <SwitchToggle/>
-            <Text>
-                Ваш класс будет виден всем пользователям приложения
-            </Text>
-        </Center>
-        <FormButton>Создать</FormButton>
+        <Form>
+            <Info>
+                <ImageContainer>
+                    <img src={addImageIcon} alt="установить аватар" />
+                </ImageContainer>
+                <Input type="text" placeholder='Введите название класса' />
+            </Info>
+            <Center>
+                <SwitchToggle/>
+                <Text>
+                    Ваш класс будет виден всем пользователям приложения
+                </Text>
+            </Center>
+            <FormButton>Создать</FormButton>
+        </Form>
     </LobbyFormLayout>
   )
 }

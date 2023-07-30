@@ -7,6 +7,13 @@ import FormButton from '../../../shared/ui/formButton/FormButton';
 import avatar from '../../../../public/icons/avatar.svg';
 import deleteIcon from '../../../../public/icons/delete.svg';
 
+const Form = styled.form`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+`
+
 const Info = styled.div`
     display: flex;
     gap: 24px;
@@ -49,22 +56,24 @@ const Buttons = styled.div`
 export const EditRoomForm: React.FC = () => {
   return (
     <LobbyFormLayout>
-        <Info>
-            <ImageContainer>
-                <img src={avatar} alt="аватар" />
-            </ImageContainer>
-            <Input type="text" placeholder='Введите название класса' value='математика 10 класс' />
-        </Info>
-        <Center>
-            <SwitchToggle/>
-            <Text>
-                Ваш класс будет виден всем пользователям приложения
-            </Text>
-        </Center>
-        <Buttons>
-            <FormButton>Сохранить</FormButton>
-            <button><img src={deleteIcon} alt="Удалить" /></button>
-        </Buttons>
+        <Form>
+            <Info>
+                <ImageContainer>
+                    <img src={avatar} alt="аватар" />
+                </ImageContainer>
+                <Input type="text" placeholder='Введите название класса' value='математика 10 класс' />
+            </Info>
+            <Center>
+                <SwitchToggle/>
+                <Text>
+                    Ваш класс будет виден всем пользователям приложения
+                </Text>
+            </Center>
+            <Buttons>
+                <FormButton>Сохранить</FormButton>
+                <button><img src={deleteIcon} alt="Удалить" /></button>
+            </Buttons>
+        </Form>
     </LobbyFormLayout>
   )
 }
