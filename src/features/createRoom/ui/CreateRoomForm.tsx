@@ -1,4 +1,5 @@
 import React from 'react';
+import { Create } from '../model/create';
 import styled from 'styled-components';
 import LobbyFormLayout from '../../../widgets/layout/LobbyFormLayout';
 import Input from '../../../shared/ui/Input';
@@ -47,7 +48,7 @@ const Text = styled.p`
 export const CreateRoomForm: React.FC = () => {
   return (
     <LobbyFormLayout>
-        <Form>
+        <Form onSubmit={Create}>
             <Info>
                 <ImageContainer>
                     <img src={addImageIcon} alt="установить аватар" />

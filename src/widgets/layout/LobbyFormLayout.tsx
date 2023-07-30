@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Container = styled.form`
+const Container = styled.div`
     position: relative;
     width: calc(100% - 20px);
     max-width: 1196px;
