@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import cameraOn from "../../../public/icons/videocamera-on.svg";
 import cameraOff from "../../../public/icons/videocamera-off.svg";
@@ -32,13 +32,87 @@ const SwitchBlock = styled.div`
 
 let micro: string | null = localStorage.getItem("microphone");
 let cam: string | null = localStorage.getItem("camera");
+let audioStream: MediaStream;
+let volumeInterval: NodeJS.Timer | undefined;
+let analyser: AnalyserNode;
 
-const CheckDevices: React.FC = () => {
+const CheckDevices: React.FC<{ onSpeak: Function }> = ({ onSpeak }) => {
   const webcam = useRef<Webcam>(null);
   const [microphone, setMicrophone] = useState(
     micro ? JSON.parse(micro) : true
   );
   const [camera, setCamera] = useState(cam ? JSON.parse(cam) : true);
+
+  useEffect(() => {
+    getAudio();
+    volumeInterval = setInterval(handleAudioData, 10);
+    return () => {
+      clearInterval(volumeInterval);
+      volumeInterval = undefined;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!volumeInterval && microphone)
+      volumeInterval = setInterval(handleAudioData, 10);
+    if (volumeInterval && !microphone) {
+      handleAudioData();
+      clearInterval(volumeInterval);
+      volumeInterval = undefined;
+    }
+  }, [microphone]);
+
+  const getAudio = async () => {
+    try {
+      audioStream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          echoCancellation: true,
+        },
+      });
+      if (audioStream) {
+        const audioContext = new AudioContext();
+        const audioSource = audioContext.createMediaStreamSource(audioStream);
+        analyser = audioContext.createAnalyser();
+
+        analyser.fftSize = 512;
+        analyser.minDecibels = -127;
+        analyser.maxDecibels = 0;
+        analyser.smoothingTimeConstant = 0.4;
+
+        audioSource.connect(analyser);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleAudioData = () => {
+    if (audioStream) {
+      const threshold = 0.4;
+      const audioLevel = getAudioLevel();
+
+      if (audioLevel <= threshold && microphone) {
+        onSpeak(true);
+      } else {
+        onSpeak(false);
+      }
+    }
+  };
+
+  const getAudioLevel = () => {
+    const bufferLength = analyser.frequencyBinCount;
+    const volumes = new Uint8Array(bufferLength);
+    analyser.getByteFrequencyData(volumes);
+    let volumeSum = 0;
+    for (let i = 0; i < bufferLength; i++) {
+      const value = (volumes[i] - 128) / 128;
+      volumeSum += Math.abs(value);
+    }
+    const averageVolume = volumeSum / volumes.length;
+    const audioLevel = (averageVolume * 100) / 127;
+
+    return audioLevel;
+  };
 
   function changeMicro() {
     localStorage.setItem("microphone", `${!microphone}`);
@@ -91,63 +165,3 @@ const CheckDevices: React.FC = () => {
 };
 
 export default CheckDevices;
-
-// const containerRef = useRef(null); // Реф для контейнера
-
-// useEffect(() => {
-//   const getMicrophoneAccess = async () => {
-//     try {
-//       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-//   getMicrophoneAccess();
-// }, []);
-
-// useEffect(() => {
-//   const handleAudioData = () => {
-//     if (isActive) {
-//       const threshold = 100; // Граничное значение громкости
-//       const audioLevel = getAudioLevel(); // Функция, которая получает уровень громкости аудио
-
-//       if (audioLevel >= threshold) {
-//         containerRef.current.style.border = '5px solid red'; // Пример стилизации рамки при достижении граничного значения громкости
-//       } else {
-//         containerRef.current.style.border = 'none'; // Убираем рамку, когда громкость ниже граничного значения
-//       }
-//     } else {
-//       containerRef.current.style.border = 'none'; // Убираем рамку, если микрофон неактивен
-//     }
-//   };
-
-//   handleAudioData();
-// }, [isActive]);
-
-// const toggleMicrophone = () => {
-//   setIsActive((prevState) => !prevState);
-// };
-
-// const getAudioLevel = () => {
-// const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-// const analyser = audioContext.createAnalyser();
-// const microphone = audioContext.createMediaStreamSource(stream); // Подставьте вашу переменную с медиапотоком
-
-// microphone.connect(analyser);
-
-// analyser.fftSize = 256;
-// const bufferLength = analyser.frequencyBinCount;
-// const dataArray = new Uint8Array(bufferLength);
-
-// analyser.getByteTimeDomainData(dataArray);
-
-// let sum = 0;
-// for (let i = 0; i < bufferLength; i++) {
-//   const value = (dataArray[i] - 128) / 128; // Приведение значения к диапазону от -1 до 1
-//   sum += Math.abs(value);
-// }
-
-// const audioLevel = sum / bufferLength;
-
-// return audioLevel;
-// };

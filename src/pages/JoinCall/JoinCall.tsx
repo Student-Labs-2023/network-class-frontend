@@ -5,6 +5,7 @@ import { styled } from "styled-components";
 import { BackButton } from "../../features/Back";
 import CheckDevices from "../../widgets/CheckDevices/CheckDevices";
 import avatar from "../../../public/icons/avatar.svg";
+import audio from "../../../public/icons/micro.svg";
 import styles from "./styles.module.css";
 import { CopyLink } from "../../features/Copy";
 import EnterButton from "../../shared/ui/EnterButton";
@@ -51,6 +52,7 @@ const JoinCall: React.FC = () => {
   const [stateEnter, setStateEnter] = useState<State>("Занятие началось");
   const [devices, setDevices] = useState<IDevices>(devicesObj);
   const [isLoading, setLoading] = useState(true);
+  const [speak, setSpeak] = useState(false);
 
   console.log(setStateEnter);
 
@@ -101,6 +103,10 @@ const JoinCall: React.FC = () => {
     location.href = `/lesson/${id}`;
   }
 
+  function onSpeak(speaking: boolean) {
+    speaking ? setSpeak(true) : setSpeak(false);
+  }
+
   return (
     <Page>
       <Header />
@@ -108,8 +114,24 @@ const JoinCall: React.FC = () => {
         <BackButton />
         <Content>
           <div className={styles.settings}>
-            <div className={styles.video}>
-              <CheckDevices />
+            <div
+              className={styles.video}
+              style={
+                speak
+                  ? { outline: "4px solid var(--blue, #175EF1)" }
+                  : { outline: "none" }
+              }
+            >
+              <CheckDevices onSpeak={onSpeak} />
+              <img
+                src={audio}
+                alt=""
+                style={
+                  speak
+                    ? { position: "absolute", top: "11px", left: "12px" }
+                    : { display: "none" }
+                }
+              ></img>
             </div>
             <div className={styles.settingsVideo}>
               {isLoading ? (
