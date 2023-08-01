@@ -1,10 +1,12 @@
 import React from 'react';
-import type { IRoom } from '../shared/api/models';
 import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 import roomsState from '../pages/Lobby/store/roomsState';
 import RoomCard from '../entities/room/ui/RoomCard';
 import { EditRoomForm } from '../features/editRoom';
+import { useRoomsList } from '../entities/room/api/useRoomsList';
+import ErrorListMessage from '../shared/ui/ErrorListMessage';
+import ZeroListMessage from '../shared/ui/ZeroListMessage';
 
 const Container = styled.div`
     width: 100%;
@@ -50,11 +52,9 @@ const Head = styled.h3`
     color: var(--grey_2);
 `
 
-interface Props {
-    rooms: IRoom[]
-}
+const RoomsList: React.FC = observer(() => {
 
-const RoomsList: React.FC<Props> = observer(({ rooms }) => {
+    const { rooms, loading, error } = useRoomsList();
 
   return (
     <Container>
@@ -64,17 +64,28 @@ const RoomsList: React.FC<Props> = observer(({ rooms }) => {
             <Head>Статус</Head>
             <Head>Доступ</Head>
         </Header>
-        {roomsState.state === 'edit' ?
+        {loading && <p>loading...</p>}
+        {error ? <ErrorListMessage>{error}</ErrorListMessage> :
             <>
-                {rooms.map(room => 
-                    <EditRoomForm key={room.id}/>   
-                )}
-            </>
-            :
-            <>
-                {rooms.map(room => 
-                    <RoomCard room={room} key={room.id}/>    
-                )}
+            {rooms.length > 0 ?
+                <>
+                    {roomsState.state === 'edit' ?
+                        <>
+                            {rooms.map(room => 
+                                <EditRoomForm key={room.id}/>   
+                            )}
+                        </>
+                        :
+                        <>
+                            {rooms.map(room => 
+                                <RoomCard room={room} key={room.id}/>    
+                            )}
+                        </>
+                    }
+                </> 
+                :
+                <ZeroListMessage>У Вас пока нет созданных классов</ZeroListMessage>
+            }
             </>
         }
     </Container>
