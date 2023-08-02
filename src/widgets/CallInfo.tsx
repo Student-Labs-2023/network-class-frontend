@@ -43,7 +43,6 @@ const CallInfo: React.FC = () => {
         <CopyLink/>
         <Paragraph>18 участников|01:12:45 </Paragraph>
       </Info>
-
     </Container>
   )
 }
