@@ -64,28 +64,31 @@ const RoomsList: React.FC = observer(() => {
             <Head>Статус</Head>
             <Head>Доступ</Head>
         </Header>
-        {loading && <p>loading...</p>}
-        {error ? <ErrorListMessage>{error}</ErrorListMessage> :
+        {loading ? <p>loading...</p> :
             <>
-            {rooms.length > 0 ?
-                <>
-                    {roomsState.state === 'edit' ?
+                {error ? <ErrorListMessage>{error}</ErrorListMessage> :
+                    <>
+                    {rooms.length > 0 ?
                         <>
-                            {rooms.map(room => 
-                                <EditRoomForm key={room.id}/>   
-                            )}
-                        </>
+                            {roomsState.state === 'edit' ?
+                                <>
+                                    {rooms.map(room => 
+                                        <EditRoomForm key={room.id}/>   
+                                    )}
+                                </>
+                                :
+                                <>
+                                    {rooms.map(room => 
+                                        <RoomCard room={room} key={room.id}/>    
+                                    )}
+                                </>
+                            }
+                        </> 
                         :
-                        <>
-                            {rooms.map(room => 
-                                <RoomCard room={room} key={room.id}/>    
-                            )}
-                        </>
+                        <ZeroListMessage>У Вас пока нет созданных классов</ZeroListMessage>
                     }
-                </> 
-                :
-                <ZeroListMessage>У Вас пока нет созданных классов</ZeroListMessage>
-            }
+                    </>
+                }
             </>
         }
     </Container>
