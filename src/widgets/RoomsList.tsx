@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { IRoom } from '../entities/room/api/models';
+import socket from '../pages/Lobby/store/socket';
 import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 import roomsState from '../pages/Lobby/store/roomsState';
@@ -53,8 +55,22 @@ const Head = styled.h3`
 `
 
 const RoomsList: React.FC = observer(() => {
-
+    const [searchedRooms, setSearchedRooms] = useState([]);
     const { rooms, loading, error } = useRoomsList();
+
+    const st = socket.state;
+
+    useEffect(() => {
+      st.onopen = function() {
+        st.send('connected');
+      };
+    }, []);
+
+    st.onmessage = function(event) {
+        const response = event.data;
+        setSearchedRooms(JSON.parse(response as any));
+        console.log(searchedRooms);
+    };
 
   return (
     <Container>
@@ -64,32 +80,42 @@ const RoomsList: React.FC = observer(() => {
             <Head>Статус</Head>
             <Head>Доступ</Head>
         </Header>
-        {loading ? <p>loading...</p> :
-            <>
-                {error ? <ErrorListMessage>{error}</ErrorListMessage> :
-                    <>
-                    {rooms.length > 0 ?
+        {searchedRooms.length > 0 ?
+        <>
+            {searchedRooms.map((room: IRoom) => 
+                <RoomCard room={room} key={room.id}/>
+            )}
+        </> 
+        :
+        <>
+            {loading ? <p>loading...</p> :
+                <>
+                    {error ? <ErrorListMessage>{error}</ErrorListMessage> :
                         <>
-                            {roomsState.state === 'edit' ?
-                                <>
-                                    {rooms.map(room => 
-                                        <EditRoomForm key={room.id}/>   
-                                    )}
-                                </>
-                                :
-                                <>
-                                    {rooms.map(room => 
-                                        <RoomCard room={room} key={room.id}/>    
-                                    )}
-                                </>
-                            }
-                        </> 
-                        :
-                        <ZeroListMessage>У Вас пока нет созданных классов</ZeroListMessage>
+                        {rooms.length > 0 ?
+                            <>
+                                {roomsState.state === 'edit' ?
+                                    <>
+                                        {rooms.map(room => 
+                                            <EditRoomForm key={room.id}/>   
+                                        )}
+                                    </>
+                                    :
+                                    <>
+                                        {rooms.map(room => 
+                                            <RoomCard room={room} key={room.id}/>    
+                                        )}
+                                    </>
+                                }
+                            </> 
+                            :
+                            <ZeroListMessage>У Вас пока нет созданных классов</ZeroListMessage>
+                        }
+                        </>
                     }
-                    </>
-                }
-            </>
+                </>
+            }
+        </>
         }
     </Container>
   )

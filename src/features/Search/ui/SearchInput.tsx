@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import searchIcon from '../../../../public/icons/search.svg';
+import socket from '../../../pages/Lobby/store/socket';
 
 const Container = styled.div`
     display: flex;
@@ -17,7 +18,7 @@ const Container = styled.div`
 
 const Input = styled.input`
     color: var(--grey-3);
-    font-family: Noto Sans;
+    font-family: var(--font);
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -25,11 +26,18 @@ const Input = styled.input`
 `
 
 export const SearchInput: React.FC = () => {
+  const dataRef = useRef();
+  const st = socket.state;
+
+  function inputData(data: any) {
+    st.send(data);
+    st.close(1, "closed");
+  }
 
   return (
     <Container>
-        <img src={searchIcon} alt="поиск" />
-        <Input placeholder='Поиск'/>
+      <img src={searchIcon} alt="поиск" />
+      <Input type='text' ref={dataRef} onChange={() => inputData(dataRef.current?.value)}/>
     </Container>
   )
 }
