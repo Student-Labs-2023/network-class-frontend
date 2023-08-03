@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { IUser } from '../../../shared/api/models';
+import { useAuth0 } from "@auth0/auth0-react";
+import { CreateThunk } from '../model';
 import styled from 'styled-components';
 import LobbyFormLayout from '../../../widgets/layout/LobbyFormLayout';
 import Input from '../../../shared/ui/Input';
 import SwitchToggle from '../../../shared/ui/switchToggle/SwitchToggle';
 import FormButton from '../../../shared/ui/formButton/FormButton';
 import addImageIcon from '../../../../public/icons/gallery-add.svg';
+
+const Form = styled.form`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+`
 
 const Info = styled.div`
     display: flex;
@@ -38,21 +48,32 @@ const Text = styled.p`
 `
 
 export const CreateRoomForm: React.FC = () => {
+    const [title, setTitle] = useState('');
+    const [isPublic, setIsPublic] = useState(true);
+
+    const { user } = useAuth0();
+
+    function create(event: any) {
+        CreateThunk(event, title, isPublic, user as IUser);
+    }
+
   return (
     <LobbyFormLayout>
-        <Info>
-            <ImageContainer>
-                <img src={addImageIcon} alt="установить аватар" />
-            </ImageContainer>
-            <Input type="text" placeholder='Введите название класса' />
-        </Info>
-        <Center>
-            <SwitchToggle/>
-            <Text>
-                Ваш класс будет виден всем пользователям приложения
-            </Text>
-        </Center>
-        <FormButton>Создать</FormButton>
+        <Form onSubmit={create}>
+            <Info>
+                <ImageContainer>
+                    <img src={addImageIcon} alt="установить аватар" />
+                </ImageContainer>
+                <Input type="text" placeholder='Введите название класса' value={title} onChange={(e) => setTitle(e.target.value)}/>
+            </Info>
+            <Center>
+                <SwitchToggle value={isPublic} onClick={() => setIsPublic(!isPublic)}/>
+                <Text>
+                    Ваш класс будет виден всем пользователям приложения
+                </Text>
+            </Center>
+            <FormButton>Создать</FormButton>
+        </Form>
     </LobbyFormLayout>
   )
 }

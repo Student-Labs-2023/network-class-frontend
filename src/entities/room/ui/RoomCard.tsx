@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import type { IRoom } from "../../../shared/api/models";
+import type { IRoom } from "../api/models";
 import styled from "styled-components";
 import JoinButton from "./JoinButton";
 import Tooltip from "../../../shared/ui/Tooltip";
 import avatar from "../../../../public/icons/avatar.svg";
 import callActive from "../../../../public/icons/call-active.svg";
 import callDisabled from "../../../../public/icons/call-disabled.svg";
-import { useAuth0 } from "@auth0/auth0-react";
-import menuIcon from "../../../../public/icons/points.svg";
-import Select from "../../../shared/ui/Select";
 
 const Container = styled.div`
   position: relative;
@@ -43,6 +40,7 @@ const Title = styled.h3`
 `;
 
 const Teacher = styled.h4`
+  min-width: 251px;
   font-family: var(--font);
   font-size: 18px;
   font-style: normal;
@@ -74,8 +72,6 @@ interface Props {
 
 const RoomCard: React.FC<Props> = ({ room }) => {
   const [tooltipActive, setTooltipActive] = useState(false);
-  const { user } = useAuth0();
-  const [selectActive, setSelectActive] = useState(false);
 
   function copyLink() {
     setTooltipActive(true);
@@ -89,12 +85,6 @@ const RoomCard: React.FC<Props> = ({ room }) => {
       `;
     }, 1500);
   }
-
-  function changeSelect() {
-    setSelectActive(!selectActive);
-  }
-
-  function openEditForm() {}
 
   return (
     <Container>
