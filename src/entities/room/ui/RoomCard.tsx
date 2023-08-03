@@ -92,7 +92,7 @@ const RoomCard: React.FC<Props> = ({ room }) => {
         <Title>{room.title}</Title>
       </Info>
       <Teacher>{room.owner}</Teacher>
-      {room.isPublic === true ? (
+      {room.isActive === true ? (
         <img src={callActive} alt="доступен" />
       ) : (
         <img src={callDisabled} alt="недоступен" />

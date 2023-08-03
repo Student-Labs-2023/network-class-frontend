@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { IUser } from '../../../shared/api/models';
+import { useAuth0 } from "@auth0/auth0-react";
 import { CreateThunk } from '../model';
 import styled from 'styled-components';
 import LobbyFormLayout from '../../../widgets/layout/LobbyFormLayout';
@@ -49,11 +51,11 @@ export const CreateRoomForm: React.FC = () => {
     const [title, setTitle] = useState('');
     const [isPublic, setIsPublic] = useState(true);
 
-    function create(event: any) {
-        CreateThunk(event, title, isPublic);
-    }
+    const { user } = useAuth0();
 
-    
+    function create(event: any) {
+        CreateThunk(event, title, isPublic, user as IUser);
+    }
 
   return (
     <LobbyFormLayout>

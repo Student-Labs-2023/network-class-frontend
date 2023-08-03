@@ -1,17 +1,11 @@
-import { IUser } from "../../../shared/api/models";
-
-export const CreateThunk= (event: any, title: string, isPublic: boolean, user: IUser) => {
+export const EditThunk= (event: any, title: string, isPublic: boolean) => {
     event.preventDefault();
     const API = String(import.meta.env.VITE_API);
 
     const newRoom = {
-        title: title,
-        url: 'https://network-class.pages.dev/joinlesson/1',
-        photo_url: '',
-        isActive: false,
-        owner: user?.name || user?.email,
-        isPublic: isPublic,
-        owner_email: user?.email
+        name: title,
+        public: isPublic,
+        owner_id: 1
     }
 
     fetch(`${API}/channels`, {
