@@ -37,7 +37,7 @@ export const SearchInput: React.FC = () => {
   return (
     <Container>
       <img src={searchIcon} alt="поиск" />
-      <Input type='text' ref={dataRef} onChange={() => inputData(dataRef.current?.value)}/>
+      <Input type='text' placeholder='Название' ref={dataRef} onChange={() => inputData(dataRef.current?.value)}/>
     </Container>
   )
 }

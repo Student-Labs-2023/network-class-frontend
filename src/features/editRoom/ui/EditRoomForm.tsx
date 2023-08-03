@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { IRoom } from '../../../entities/room/api/models';
+import { EditThunk } from '../model';
+import { DeleteThunk } from '../model/delete';
 import styled from 'styled-components';
 import LobbyFormLayout from '../../../widgets/layout/LobbyFormLayout';
 import Input from '../../../shared/ui/Input';
@@ -59,16 +61,25 @@ interface Props {
 }
 
 export const EditRoomForm: React.FC<Props> = ({ room }) => {
+    const [title, setTitle] = useState(room.title);
     const [isPublic, setIsPublic] = useState(room.isPublic);
+
+    function editRoom(event: any) {
+        EditThunk(event, room.id, title, isPublic);
+    }
+
+    function deleteRoom() {
+        DeleteThunk(room.id);
+    }
 
   return (
     <LobbyFormLayout>
-        <Form>
+        <Form onSubmit={editRoom}>
             <Info>
                 <ImageContainer>
                     <img src={avatar} alt="аватар" />
                 </ImageContainer>
-                <Input type="text" placeholder='Введите название класса' value='математика 10 класс' />
+                <Input type="text" placeholder='Введите название класса' value={title} onChange={e => setTitle(e.target.value)} />
             </Info>
             <Center>
                 <SwitchToggle value={isPublic} onClick={() => setIsPublic(!isPublic)}/>
@@ -78,7 +89,7 @@ export const EditRoomForm: React.FC<Props> = ({ room }) => {
             </Center>
             <Buttons>
                 <FormButton>Сохранить</FormButton>
-                <button><img src={deleteIcon} alt="Удалить" /></button>
+                <button type='button' onClick={deleteRoom}><img src={deleteIcon} alt="Удалить" /></button>
             </Buttons>
         </Form>
     </LobbyFormLayout>
