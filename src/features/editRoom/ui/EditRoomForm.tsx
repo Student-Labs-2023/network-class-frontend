@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { IRoom } from '../../../entities/room/api/models';
 import styled from 'styled-components';
 import LobbyFormLayout from '../../../widgets/layout/LobbyFormLayout';
 import Input from '../../../shared/ui/Input';
@@ -53,7 +54,13 @@ const Buttons = styled.div`
     align-items: center;
 `
 
-export const EditRoomForm: React.FC = () => {
+interface Props {
+    room: IRoom,
+}
+
+export const EditRoomForm: React.FC<Props> = ({ room }) => {
+    const [isPublic, setIsPublic] = useState(room.isPublic);
+
   return (
     <LobbyFormLayout>
         <Form>
@@ -64,7 +71,7 @@ export const EditRoomForm: React.FC = () => {
                 <Input type="text" placeholder='Введите название класса' value='математика 10 класс' />
             </Info>
             <Center>
-                <SwitchToggle/>
+                <SwitchToggle value={isPublic} onClick={() => setIsPublic(!isPublic)}/>
                 <Text>
                     Ваш класс будет виден всем пользователям приложения
                 </Text>
