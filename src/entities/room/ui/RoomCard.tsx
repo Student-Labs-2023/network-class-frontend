@@ -40,6 +40,7 @@ const Title = styled.h3`
 `;
 
 const Teacher = styled.h4`
+  min-width: 251px;
   font-family: var(--font);
   font-size: 18px;
   font-style: normal;
