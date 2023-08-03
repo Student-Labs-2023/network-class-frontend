@@ -26,7 +26,7 @@ const Input = styled.input`
 `
 
 export const SearchInput: React.FC = () => {
-  const dataRef = useRef();
+  const dataRef = useRef<HTMLInputElement>(null);
   const st = socket.state;
 
   function inputData(data: any) {
