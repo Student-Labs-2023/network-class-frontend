@@ -3,8 +3,8 @@ export const EditThunk= (event: any, id: number, title: string, isPublic: boolea
     const API = String(import.meta.env.VITE_API);
 
     const editedRoom = {
-        name: title,
-        public: isPublic,
+      name: title,
+      public: isPublic,
     }
 
     fetch(`${API}/channels/${id}`, {
