@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import type { IRoom } from "../api/models";
+import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import JoinButton from "./JoinButton";
 import Tooltip from "../../../shared/ui/Tooltip";
@@ -72,6 +73,7 @@ interface Props {
 
 const RoomCard: React.FC<Props> = ({ room }) => {
   const [tooltipActive, setTooltipActive] = useState(false);
+  const { user } = useAuth0();
 
   function copyLink() {
     setTooltipActive(true);
@@ -138,18 +140,6 @@ const RoomCard: React.FC<Props> = ({ room }) => {
             </svg>
           </Button>
         </Tooltip>
-        {room.owner === user?.name ? (
-          <>
-            <button onClick={changeSelect}>
-              <img src={menuIcon} alt="меню" />
-            </button>
-            <Select active={selectActive}>
-              <button onClick={openEditForm}>изменить</button>
-            </Select>
-          </>
-        ) : (
-          <></>
-        )}
       </Access>
     </Container>
   );
