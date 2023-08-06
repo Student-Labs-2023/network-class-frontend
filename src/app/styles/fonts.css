@@ -1,0 +1,35 @@
+@font-face {
+    src: url('../../../public/fonts/NotoSans-Light.ttf') format('truetype');
+    font-family: 'Noto Sans';
+    font-weight: 300;
+}
+
+@font-face {
+    src: url('../../../public/fonts/NotoSans-Regular.ttf') format('truetype');
+    font-family: 'Noto Sans';
+    font-weight: 400;
+}
+
+@font-face {
+    src: url('../../../public/fonts/NotoSans-Medium.ttf') format('truetype');
+    font-family: 'Noto Sans';
+    font-weight: 500;
+}
+
+@font-face {
+    src: url('../../../public/fonts/NotoSans-SemiBold.ttf') format('truetype');
+    font-family: 'Noto Sans';
+    font-weight: 600;
+}
+
+@font-face {
+    src: url('../../../public/fonts/NotoSans-Bold.ttf') format('truetype');
+    font-family: 'Noto Sans';
+    font-weight: 700;
+}
+
+@font-face {
+    src: url('../../../public/fonts/Kino-Regular.ttf') format('truetype');
+    font-family: 'Kino';
+    font-weight: 400;
+}

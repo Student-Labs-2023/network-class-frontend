@@ -1,0 +1,74 @@
+.settings {
+  flex: 1 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.video {
+  min-width: 704px;
+  min-height: 340px;
+  height: calc(25vw);
+  border-radius: 10px;
+  box-shadow: 0px 0px 2px 0px var(--grey_4);
+  overflow: hidden;
+  background: var(--grey-5, #d5dee8);
+  position: relative;
+}
+
+.settingsVideo {
+  min-width: 704px;
+  display: flex;
+  flex-wrap: nowrap;
+  padding-top: 21px;
+  align-items: flex-start;
+  gap: 31px;
+}
+
+.info {
+  flex: 0 0 420px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 30px;
+}
+
+.title {
+  display: inline-block;
+  margin-right: 15px;
+  color: var(--blue);
+  font-family: var(--font);
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.owner {
+  color: black;
+  font-family: var(--font);
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.count {
+  color: var(--grey-1, #5f6a77);
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.stateOn {
+  color: var(--green, #5bc259);
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 20px;
+}
+
+.stateOff {
+  color: var(--red, #f95a39);
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 20px;
+}
