@@ -30,7 +30,15 @@ const ListPage = styled.div`
   min-width: 100%;
   overflow-x: auto;
   &::-webkit-scrollbar {
-    /* width: 0; */
+    width: 5px;
+    height: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    opacity: 0;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: rgba(41, 45, 51, 0.3);
   }
   display: grid;
   height: 100%;
