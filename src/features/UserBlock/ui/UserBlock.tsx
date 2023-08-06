@@ -6,8 +6,8 @@ import monitor from "../../../../public/icons/monitor-mini.svg";
 
 const Container = styled.div`
   border-radius: 8px;
-  min-width: 276px;
-  min-height: 170px;
+  min-width: 278.4px;
+  min-height: 169px;
   position: relative;
 `;
 

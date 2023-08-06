@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { CSSProperties, useRef, useState } from "react";
 import styled from "styled-components";
 import right from "../../../public/icons/arrow-right.svg";
 import { IUser } from "../../shared/api/models";
@@ -17,16 +17,19 @@ const Container = styled.div`
 
 const List = styled.div`
   position: relative;
-  display: grid;
   min-width: 100%;
   height: 100%;
   left: 0;
-  grid-template-rows: repeat(3, minmax(170px, 1fr));
-  grid-template-columns: minmax(276px, 0.2fr);
-  grid-auto-columns: minmax(276px, 0.2fr);
-  grid-auto-flow: column;
+  display: flex;
+  flex-wrap: nowrap;
+  transition: left 0.4s ease-out;
+`;
+
+const ListPage = styled.div`
+  flex: 1 0 1440px;
+  display: grid;
+  height: 100%;
   gap: 12px;
-  transition: all 0.4s ease-out;
 `;
 
 const ShowMoreButton = styled.button`
@@ -205,32 +208,69 @@ const peopleList: IUser[] = [
 
 const UserGrid: React.FC = () => {
   const list = useRef<HTMLDivElement>(null);
-  const [listPage, setListPage] = useState(1);
+  const refPage = useRef<HTMLDivElement>(null);
+  const [numberPage, setNumberPage] = useState(1);
   const lengthPage = 15;
   const maxPage: number = Math.ceil(peopleList.length / lengthPage);
+  const listPages = [];
+
+  const getCSSGridStyles = (numberOfItems: number): CSSProperties => {
+    if (numberOfItems <= 1) {
+      return { gridTemplate: "1fr / 1fr" };
+    } else if (numberOfItems <= 2) {
+      return { gridTemplate: "1fr / repeat(2, 1fr)" };
+    } else if (numberOfItems <= 6) {
+      return { gridTemplate: "repeat(2, 1fr) / repeat(3, 1fr)" };
+    } else if (numberOfItems <= 8) {
+      return { gridTemplate: "repeat(2, 1fr) / repeat(4, 1fr)" };
+    } else if (numberOfItems <= 12) {
+      return { gridTemplate: "repeat(3, 1fr) / repeat(4, 1fr)" };
+    } else {
+      return { gridTemplate: "repeat(3, 1fr) / repeat(5, 1fr)" };
+    }
+  };
+
+  for (let i = 0; i < maxPage; i++) {
+    const listPage = peopleList
+      .slice(i * lengthPage, (i + 1) * lengthPage)
+      .map((people, index) => (
+        <UserBlock avatar={people.picture} name={people.name} key={index} />
+      ));
+    listPages.push(
+      <ListPage ref={refPage} key={i} style={getCSSGridStyles(listPage.length)}>
+        {listPage}
+      </ListPage>
+    );
+  }
 
   function moveRight() {
     if (!checkDisabled("right")) {
-      list.current ? (list.current.style.left = `-${listPage * 100}%`) : "";
-      setListPage(listPage + 1);
+      list.current && refPage.current
+        ? (list.current.style.left = `-${
+            numberPage * refPage.current?.offsetWidth
+          }px`)
+        : "";
+      setNumberPage(numberPage + 1);
     }
   }
 
   function moveLeft() {
     if (!checkDisabled("left")) {
-      list.current
-        ? (list.current.style.left = `-${(listPage - 2) * 100}%`)
+      list.current && refPage.current
+        ? (list.current.style.left = `-${
+            (numberPage - 2) * refPage.current?.offsetWidth
+          }px`)
         : "";
-      setListPage(listPage - 1);
+      setNumberPage(numberPage - 1);
     }
   }
 
   function checkDisabled(button: string): boolean {
     switch (button) {
       case "left":
-        return listPage > 1 ? false : true;
+        return numberPage > 1 ? false : true;
       case "right":
-        return listPage < maxPage ? false : true;
+        return numberPage < maxPage ? false : true;
       default:
         return false;
     }
@@ -245,13 +285,9 @@ const UserGrid: React.FC = () => {
       >
         <img src={right} alt="" style={{ transform: "rotate(180deg)" }} />
       </ShowMoreButton>
-      <List ref={list}>
-        {peopleList.map((people) => (
-          <UserBlock avatar={people.picture} name={people.name} />
-        ))}
-      </List>
+      <List ref={list}>{listPages}</List>
       <ShowMoreButton
-        style={{ right: "20px" }}
+        style={{ right: "10px" }}
         onClick={moveRight}
         disabled={checkDisabled("right")}
       >
