@@ -9,7 +9,8 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  max-width: 1440px;
+  /* max-width: 1440px; */
+  padding: 0 48px;
   height: 100vh;
   margin: 0 auto;
   background: var(--white);

@@ -26,7 +26,12 @@ const List = styled.div`
 `;
 
 const ListPage = styled.div`
-  flex: 1 0 1440px;
+  flex: 0 0;
+  min-width: 100%;
+  overflow-x: auto;
+  &::-webkit-scrollbar {
+    /* width: 0; */
+  }
   display: grid;
   height: 100%;
   gap: 12px;
@@ -246,9 +251,7 @@ const UserGrid: React.FC = () => {
   function moveRight() {
     if (!checkDisabled("right")) {
       list.current && refPage.current
-        ? (list.current.style.left = `-${
-            numberPage * refPage.current?.offsetWidth
-          }px`)
+        ? (list.current.style.left = `-${numberPage * 100}%`)
         : "";
       setNumberPage(numberPage + 1);
     }
@@ -257,9 +260,7 @@ const UserGrid: React.FC = () => {
   function moveLeft() {
     if (!checkDisabled("left")) {
       list.current && refPage.current
-        ? (list.current.style.left = `-${
-            (numberPage - 2) * refPage.current?.offsetWidth
-          }px`)
+        ? (list.current.style.left = `-${(numberPage - 2) * 100}%`)
         : "";
       setNumberPage(numberPage - 1);
     }
