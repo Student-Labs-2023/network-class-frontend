@@ -6,7 +6,6 @@ import { observer } from 'mobx-react-lite';
 import roomsState from '../pages/Lobby/store/roomsState';
 import RoomCard from '../entities/room/ui/RoomCard';
 import { EditRoomForm } from '../features/editRoom';
-import { useRoomsList } from '../entities/room/api/useRoomsList';
 import ErrorListMessage from '../shared/ui/ErrorListMessage';
 import ZeroListMessage from '../shared/ui/ZeroListMessage';
 
@@ -54,9 +53,14 @@ const Head = styled.h3`
     color: var(--grey_2);
 `
 
-const RoomsList: React.FC = observer(() => {
+interface Props {
+    rooms: IRoom[],
+    loading?: boolean,
+    error?: string,
+}
+
+const RoomsList: React.FC<Props> = observer(({ rooms, loading, error }) => {
     const [searchedRooms, setSearchedRooms] = useState([]);
-    const { rooms, loading, error } = useRoomsList();
 
     const st = socket.state;
 
@@ -121,4 +125,4 @@ const RoomsList: React.FC = observer(() => {
   )
 })
 
-export default RoomsList
+export default RoomsList;

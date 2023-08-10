@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useRoomsList } from '../../entities/room/api/useRoomsList';
 import Header from "../../widgets/layout/Header";
 import Navbar from "../../widgets/layout/Navbar";
 import { CreateRoomForm } from "../../features/createRoom/index.ts";
@@ -8,6 +9,7 @@ import roomsFormState from "./store/roomsFormState.ts";
 // import { useAuth0 } from "@auth0/auth0-react";
 
 const LobbyMy: React.FC = observer(() => {
+  const { rooms, loading, error } = useRoomsList();
 
   useEffect(() => {
     if (localStorage.getItem("trigger") === "create") {
@@ -21,7 +23,7 @@ const LobbyMy: React.FC = observer(() => {
       <Header />
       <Navbar activeLink="my" />
       {roomsFormState.state === "create" ? <CreateRoomForm /> : <></>}
-      <RoomsList />
+      <RoomsList rooms={rooms} loading={loading} error={error}/>
     </>
   );
 });
