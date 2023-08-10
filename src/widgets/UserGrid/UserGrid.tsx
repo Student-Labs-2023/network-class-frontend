@@ -94,6 +94,7 @@ const UserGrid: React.FC<Props> = observer(({ peopleList }) => {
   useEffect(() => {
     lengthPage = storeParticipants.isActive ? 6 : 15;
     maxPage = Math.ceil(peopleList.length / lengthPage);
+    numberPage > maxPage ? moveLeft() : "";
     getStylesGrid();
   }, [storeParticipants.isActive]);
 
