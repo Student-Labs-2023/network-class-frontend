@@ -1,13 +1,20 @@
-import React, { CSSProperties, useRef, useState } from "react";
+import React, {
+  CSSProperties,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components";
 import right from "../../../public/icons/arrow-right.svg";
-import { IUser } from "../../shared/api/models";
-import avatar from "../../../public/icons/avatar.svg";
 import { UserBlock } from "../../features/UserBlock";
+import storeParticipants from "../../pages/CallPageCustomUI/store/participants";
+import { observer } from "mobx-react-lite";
+import { IUser } from "../../shared/api/models";
 
 const Container = styled.div`
   flex: 1 1;
-  width: 100%;
+  max-width: 100%;
   overflow-x: hidden;
   &::-webkit-scrollbar {
     width: 0;
@@ -72,160 +79,23 @@ const ShowMoreButton = styled.button`
   }
 `;
 
-const peopleList: IUser[] = [
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Пышненко Дмитрий Алексеевич",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-];
+interface Props {
+  peopleList: IUser[];
+}
 
-const UserGrid: React.FC = () => {
+const UserGrid: React.FC<Props> = observer(({ peopleList }) => {
   const list = useRef<HTMLDivElement>(null);
-  const refPage = useRef<HTMLDivElement>(null);
   const [numberPage, setNumberPage] = useState(1);
-  const lengthPage = 15;
-  const maxPage: number = Math.ceil(peopleList.length / lengthPage);
-  const listPages = [];
+  const [listPages, setListPages] = useState<ReactElement<any, any>[]>([]);
+  let lengthPage = storeParticipants.isActive ? 6 : 15;
+  let maxPage = Math.ceil(peopleList.length / lengthPage);
+  let gridList = [];
+
+  useEffect(() => {
+    lengthPage = storeParticipants.isActive ? 6 : 15;
+    maxPage = Math.ceil(peopleList.length / lengthPage);
+    getStylesGrid();
+  }, [storeParticipants.isActive]);
 
   const getCSSGridStyles = (numberOfItems: number): CSSProperties => {
     if (numberOfItems <= 1) {
@@ -243,31 +113,33 @@ const UserGrid: React.FC = () => {
     }
   };
 
-  for (let i = 0; i < maxPage; i++) {
-    const listPage = peopleList
-      .slice(i * lengthPage, (i + 1) * lengthPage)
-      .map((people, index) => (
-        <UserBlock avatar={people.picture} name={people.name} key={index} />
-      ));
-    listPages.push(
-      <ListPage ref={refPage} key={i} style={getCSSGridStyles(listPage.length)}>
-        {listPage}
-      </ListPage>
-    );
+  function getStylesGrid() {
+    gridList = [];
+    for (let i = 0; i < maxPage; i++) {
+      const listPage = peopleList
+        .slice(i * lengthPage, (i + 1) * lengthPage)
+        .map((people, index) => (
+          <UserBlock avatar={people.picture} name={people.name} key={index} />
+        ));
+      gridList.push(
+        <ListPage key={i} style={getCSSGridStyles(listPage.length)}>
+          {listPage}
+        </ListPage>
+      );
+    }
+    setListPages(gridList);
   }
 
   function moveRight() {
     if (!checkDisabled("right")) {
-      list.current && refPage.current
-        ? (list.current.style.left = `-${numberPage * 100}%`)
-        : "";
+      list.current ? (list.current.style.left = `-${numberPage * 100}%`) : "";
       setNumberPage(numberPage + 1);
     }
   }
 
   function moveLeft() {
     if (!checkDisabled("left")) {
-      list.current && refPage.current
+      list.current
         ? (list.current.style.left = `-${(numberPage - 2) * 100}%`)
         : "";
       setNumberPage(numberPage - 1);
@@ -304,6 +176,6 @@ const UserGrid: React.FC = () => {
       </ShowMoreButton>
     </Container>
   );
-};
+});
 
 export default UserGrid;
