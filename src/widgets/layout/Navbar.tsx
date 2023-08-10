@@ -10,8 +10,9 @@ const Container = styled.div`
     display: flex;
     width: 1224px;
     justify-content: space-between;
-    margin: 66px auto 25px;
+    margin: 0 auto 25px;
     border-bottom: 0.5px var(--grey_4) solid;
+    padding-top: 66px;
 `
 
 const Left = styled.div`
@@ -62,7 +63,12 @@ interface Props {
 const Navbar: React.FC<Props> = ({ activeLink, /*allLength, accessLength, myLength*/ }) => {
 
     function addRoom() {
-        roomsFormState.openCreateForm();
+        const currentUrl = window.location.href;
+        if (currentUrl !== "http://localhost:5173/lobby/my") {
+            window.location.href = '/lobby/my';
+            roomsFormState.openCreateForm();
+        }
+        roomsFormState.openCreateForm();    
     }
 
     function editRooms() {

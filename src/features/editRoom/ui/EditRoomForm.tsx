@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { IRoom } from '../../../entities/room/api/models';
+import { EditThunk } from '../model';
+import { DeleteThunk } from '../model/delete';
 import styled from 'styled-components';
 import LobbyFormLayout from '../../../widgets/layout/LobbyFormLayout';
 import Input from '../../../shared/ui/Input';
@@ -6,6 +9,13 @@ import SwitchToggle from '../../../shared/ui/switchToggle/SwitchToggle';
 import FormButton from '../../../shared/ui/formButton/FormButton';
 import avatar from '../../../../public/icons/avatar.svg';
 import deleteIcon from '../../../../public/icons/delete.svg';
+
+const Form = styled.form`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+`
 
 const Info = styled.div`
     display: flex;
@@ -46,25 +56,42 @@ const Buttons = styled.div`
     align-items: center;
 `
 
-export const EditRoomForm: React.FC = () => {
+interface Props {
+    room: IRoom,
+}
+
+export const EditRoomForm: React.FC<Props> = ({ room }) => {
+    const [title, setTitle] = useState(room.title);
+    const [isPublic, setIsPublic] = useState(room.isPublic);
+
+    function editRoom(event: any) {
+        EditThunk(event, room.id, title, isPublic);
+    }
+
+    function deleteRoom() {
+        DeleteThunk(room.id);
+    }
+
   return (
     <LobbyFormLayout>
-        <Info>
-            <ImageContainer>
-                <img src={avatar} alt="аватар" />
-            </ImageContainer>
-            <Input type="text" placeholder='Введите название класса' value='математика 10 класс' />
-        </Info>
-        <Center>
-            <SwitchToggle/>
-            <Text>
-                Ваш класс будет виден всем пользователям приложения
-            </Text>
-        </Center>
-        <Buttons>
-            <FormButton>Сохранить</FormButton>
-            <button><img src={deleteIcon} alt="Удалить" /></button>
-        </Buttons>
+        <Form onSubmit={editRoom}>
+            <Info>
+                <ImageContainer>
+                    <img src={avatar} alt="аватар" />
+                </ImageContainer>
+                <Input type="text" placeholder='Введите название класса' value={title} onChange={e => setTitle(e.target.value)} />
+            </Info>
+            <Center>
+                <SwitchToggle value={isPublic} onClick={() => setIsPublic(!isPublic)}/>
+                <Text>
+                    Ваш класс будет виден всем пользователям приложения
+                </Text>
+            </Center>
+            <Buttons>
+                <FormButton>Сохранить</FormButton>
+                <button type='button' onClick={deleteRoom}><img src={deleteIcon} alt="Удалить" /></button>
+            </Buttons>
+        </Form>
     </LobbyFormLayout>
   )
 }

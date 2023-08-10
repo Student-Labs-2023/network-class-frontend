@@ -6,7 +6,7 @@ let Path = styled.path``;
 
 let Button = styled.button`
   transition: all 0.3s ease;
-  &:hover ${Path} {
+  &:hover path {
     stroke: var(--blue);
   }
 `;

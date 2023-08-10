@@ -2,6 +2,7 @@ import React, { SyntheticEvent, useState } from "react";
 import styled from "styled-components";
 import close from "../../../../public/icons/select.svg";
 import open from "../../../../public/icons/select-active.svg";
+import Paragraph from "../../../shared/ui/Paragraph";
 
 const Container = styled.div`
   flex: 1 0 214px;
@@ -16,6 +17,7 @@ const Text = styled.div`
 `;
 
 const SelectBlock = styled.div`
+  position: relative;
   display: flex;
   padding: 10px;
   justify-content: space-between;
@@ -39,6 +41,7 @@ const Selected = styled.div`
 `;
 
 const Icon = styled.img`
+  flex: 0 0;
   width: 34px;
   height: 34px;
 `;
@@ -83,7 +86,9 @@ export const SelectDevice: React.FC<Props> = (Props) => {
     <Container>
       <Text>{Props.title}</Text>
       <SelectBlock onClick={() => setSelectActive(!selectActive)}>
-        <Selected>{selected}</Selected>
+        <Selected>
+          <Paragraph>{selected}</Paragraph>
+        </Selected>
         {selectActive ? <Icon src={open} /> : <Icon src={close} />}
       </SelectBlock>
       <div style={{ borderTop: "6px solid transparent" }}>

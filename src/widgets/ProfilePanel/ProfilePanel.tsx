@@ -16,6 +16,10 @@ const Container = styled.div`
   height: 44px;
   align-items: center;
   gap: 15px;
+
+  &:hover{
+    cursor: pointer;
+  }
 `;
 
 const Avatar = styled.img`
@@ -72,12 +76,12 @@ const ProfilePanel: React.FC = () => {
    }
 
   return (
-   <Container>
+   <Container onClick={changeSelectVisibility}>
      <Avatar src={user?.picture ? user?.picture : avatarIcon} alt="avatar" />
      <Text>
       {isAuthenticated ? <Paragraph>{user?.name}</Paragraph> : <Paragraph>Loading...</Paragraph>}
      </Text>
-     <Button onClick={changeSelectVisibility}>
+     <Button>
        <img src={selectIcon} alt="меню" />
      </Button>
 

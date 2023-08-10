@@ -7,7 +7,8 @@ import Lobby from "../pages/Lobby/Lobby";
 import LobbyAccess from "../pages/Lobby/LobbyAccess";
 import LobbyMy from "../pages/Lobby/LobbyMy";
 import JoinCall from "../pages/JoinCall/JoinCall";
-import CallPage from '../pages/CallPage/CallPage';
+import CallPage from "../pages/CallPage/CallPage";
+import CallPageUI from "../pages/CallPageCustomUI/CallPage";
 import Loader from "../shared/ui/loader/Loader";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -32,6 +33,7 @@ const App: React.FC = () => {
           <Route path="/lobby/my" element={<LobbyMy />} />
           <Route path="/joinlesson/:id" element={<JoinCall />} />
           <Route path="/lesson/:id" element={<CallPage />} />
+          <Route path="/lesson-ui" element={<CallPageUI/>} />
         </Routes>
       )}
     </>
