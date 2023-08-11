@@ -30,12 +30,7 @@
   }
 }
 
-.chat {
-  width: 23.916px;
-  height: 21.742px;
-}
-
-.chat:hover {
+.selected:hover {
   cursor: pointer;
 }
 

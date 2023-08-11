@@ -8,7 +8,7 @@ import React, {
 import styled from "styled-components";
 import right from "../../../public/icons/arrow-right.svg";
 import { UserBlock } from "../../features/UserBlock";
-import storeParticipants from "../../pages/CallPageCustomUI/store/participants";
+import store from "../../pages/CallPageCustomUI/store/sidebarState";
 import { observer } from "mobx-react-lite";
 import { IUser } from "../../shared/api/models";
 
@@ -87,16 +87,16 @@ const UserGrid: React.FC<Props> = observer(({ peopleList }) => {
   const list = useRef<HTMLDivElement>(null);
   const [numberPage, setNumberPage] = useState(1);
   const [listPages, setListPages] = useState<ReactElement<any, any>[]>([]);
-  let lengthPage = storeParticipants.isActive ? 6 : 15;
+  let lengthPage = store.isActive ? 6 : 15;
   let maxPage = Math.ceil(peopleList.length / lengthPage);
   let gridList = [];
 
   useEffect(() => {
-    lengthPage = storeParticipants.isActive ? 6 : 15;
+    lengthPage = store.isActive ? 6 : 15;
     maxPage = Math.ceil(peopleList.length / lengthPage);
     numberPage > maxPage ? moveLeft() : "";
     getStylesGrid();
-  }, [storeParticipants.isActive]);
+  }, [store.isActive]);
 
   const getCSSGridStyles = (numberOfItems: number): CSSProperties => {
     if (numberOfItems <= 1) {
