@@ -11,6 +11,7 @@ import { observer } from "mobx-react-lite";
 import styles from "./styles.module.css";
 import { IUser } from "../../../shared/api/models";
 import ParticipantsList from "../../ParticipantsList/ParticipantsList";
+import SwitchPanel from "../../../shared/ui/switchDisplay/SwitchPanel";
 
 const OpenButton = styled.div`
   position: absolute;
@@ -48,6 +49,12 @@ const Container = styled.div`
   background: rgba(255, 255, 255, 0.95);
 `;
 
+const styleSwitch = {
+  width: "66px",
+  height: "34px",
+  borderRadius: "18px",
+};
+
 interface Props {
   peopleList: IUser[];
 }
@@ -61,12 +68,8 @@ const Sidebar: React.FC<Props> = observer(({ peopleList }) => {
       : store.openSidebar();
   }
 
-  function rightDisplay() {
-    setDisplaySwitch(true);
-  }
-
-  function leftDisplay() {
-    setDisplaySwitch(false);
+  function changeDisplay(state: boolean) {
+    setDisplaySwitch(state);
   }
 
   function changeSelected() {
@@ -106,31 +109,20 @@ const Sidebar: React.FC<Props> = observer(({ peopleList }) => {
           <>
             <div className={styles.joinedHead}>
               <div className={styles.countJoined}>Подключены (12)</div>
-              <div className={styles.switchPanel}>
-                <div
-                  className={
-                    displaySwitch
-                      ? styles.switch
-                      : styles.switch + " " + styles.active
-                  }
-                  onClick={leftDisplay}
-                >
-                  <img src={oneSwitch} alt="" />
-                </div>
-                <div
-                  className={
-                    displaySwitch
-                      ? styles.switch + " " + styles.active
-                      : styles.switch
-                  }
-                  onClick={rightDisplay}
-                >
-                  <img src={twoSwitch} alt="" />
-                </div>
-              </div>
+              <SwitchPanel
+                oneSwitch={oneSwitch}
+                twoSwitch={twoSwitch}
+                style={styleSwitch}
+                state={displaySwitch}
+                onClick={changeDisplay}
+              />
             </div>
             <div className={styles.list}>
-              <ParticipantsList peopleList={peopleList} isActive={true} />
+              <ParticipantsList
+                peopleList={peopleList}
+                isActive={true}
+                displaySwitch={displaySwitch}
+              />
             </div>
             <div className={styles.joinedHead}>
               <div className={styles.countJoined}>Не подключены (4)</div>
