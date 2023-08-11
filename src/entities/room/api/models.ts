@@ -3,7 +3,8 @@ export interface IRoom {
     title: string,
     url: string,
     isPublic: boolean,
-    owner: string,
     photo_url: string,
-    isActive: boolean
+    isActive: boolean,
+    owner_email: string,
+    owner_fullname: string
 }
