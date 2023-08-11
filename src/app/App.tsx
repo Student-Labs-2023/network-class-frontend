@@ -17,7 +17,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (!isAuthenticated && !isLoading) {
-      loginWithRedirect();
+      loginWithRedirect(); 
     }
   }, [isLoading]);
 

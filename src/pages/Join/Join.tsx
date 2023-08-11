@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles.module.css";
 import logo from "../../../public/icons/logo.svg";
 import topPattern from "../../../public/icons/top-pattern.svg";
@@ -9,8 +9,18 @@ import { EnterClassForm } from "../../features/EnterClass/index.ts";
 import FunctionsList from "../../widgets/FunctionsList/FunctionsList.tsx";
 import functions from "../../widgets/FunctionsList/functionsObject.tsx";
 import ProfilePanel from "../../widgets/ProfilePanel/ProfilePanel.tsx"
+import { useAuth0 } from "@auth0/auth0-react";
+import { AddUserThunk } from "../../entities/user/api/addUser.ts";
 
 const Join: React.FC = () => {
+  const { isAuthenticated, isLoading, user } = useAuth0();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      AddUserThunk(user?.name, '', user?.email);
+    }
+  }, [isLoading])
+
   return (
     <div className={styles.Join}>
       <div className={styles.leftSide}>

@@ -9,7 +9,6 @@ export const CreateThunk= (event: any, title: string, isPublic: boolean, user: I
         url: 'https://network-class.pages.dev/joinlesson/1',
         photo_url: '',
         isActive: false,
-        owner: user?.name || user?.email,
         isPublic: isPublic,
         owner_email: user?.email
     }

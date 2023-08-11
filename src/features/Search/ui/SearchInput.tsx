@@ -31,7 +31,7 @@ export const SearchInput: React.FC = () => {
 
   function inputData(data: any) {
     st.send(data);
-    st.close(1, "closed");
+    st.close(3000, "closed");
   }
 
   return (
