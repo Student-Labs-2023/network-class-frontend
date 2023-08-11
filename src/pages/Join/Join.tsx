@@ -11,6 +11,7 @@ import functions from "../../widgets/FunctionsList/functionsObject.tsx";
 import ProfilePanel from "../../widgets/ProfilePanel/ProfilePanel.tsx"
 
 const Join: React.FC = () => {
+
   return (
     <div className={styles.Join}>
       <div className={styles.leftSide}>

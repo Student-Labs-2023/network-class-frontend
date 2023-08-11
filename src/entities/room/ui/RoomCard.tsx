@@ -94,13 +94,13 @@ const RoomCard: React.FC<Props> = ({ room }) => {
         <img src={avatar} alt="avatar" />
         <Title>{room.title}</Title>
       </Info>
-      <Teacher>{room.owner}</Teacher>
+      <Teacher>{room.owner_fullname}</Teacher>
       {room.isActive === true ? (
         <img src={callActive} alt="доступен" />
       ) : (
         <img src={callDisabled} alt="недоступен" />
       )}
-      <Access style={room.owner === user?.name ? {width: "249px"} : {}} >
+      <Access style={room.owner_fullname === user?.name ? {width: "249px"} : {}} >
         <JoinButton href={room.id} />
         <Tooltip active={tooltipActive}>
           <Button onClick={copyLink}>
