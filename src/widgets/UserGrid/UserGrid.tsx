@@ -1,13 +1,20 @@
-import React, { useRef, useState } from "react";
+import React, {
+  CSSProperties,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components";
 import right from "../../../public/icons/arrow-right.svg";
-import { IUser } from "../../shared/api/models";
-import avatar from "../../../public/icons/avatar.svg";
 import { UserBlock } from "../../features/UserBlock";
+import store from "../../pages/CallPageCustomUI/store/sidebarState";
+import { observer } from "mobx-react-lite";
+import { IUser } from "../../shared/api/models";
 
 const Container = styled.div`
   flex: 1 1;
-  width: 100%;
+  max-width: 100%;
   overflow-x: hidden;
   &::-webkit-scrollbar {
     width: 0;
@@ -17,16 +24,32 @@ const Container = styled.div`
 
 const List = styled.div`
   position: relative;
-  display: grid;
   min-width: 100%;
   height: 100%;
   left: 0;
-  grid-template-rows: repeat(3, minmax(170px, 1fr));
-  grid-template-columns: minmax(276px, 0.2fr);
-  grid-auto-columns: minmax(276px, 0.2fr);
-  grid-auto-flow: column;
+  display: flex;
+  flex-wrap: nowrap;
+  transition: left 0.4s ease-out;
+`;
+
+const ListPage = styled.div`
+  flex: 0 0;
+  min-width: 100%;
+  overflow-x: auto;
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    opacity: 0;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: rgba(41, 45, 51, 0.3);
+  }
+  display: grid;
+  height: 100%;
   gap: 12px;
-  transition: all 0.4s ease-out;
 `;
 
 const ShowMoreButton = styled.button`
@@ -56,181 +79,80 @@ const ShowMoreButton = styled.button`
   }
 `;
 
-const peopleList: IUser[] = [
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Пышненко Дмитрий Алексеевич",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-  {
-    email: "jjj",
-    email_verified: true,
-    name: "Иванов Иван Иванович",
-    nickname: "jjj",
-    picture: `${avatar}`,
-    sub: "",
-    updated_at: "11.11.1999",
-  },
-];
+interface Props {
+  peopleList: IUser[];
+}
 
-const UserGrid: React.FC = () => {
+const UserGrid: React.FC<Props> = observer(({ peopleList }) => {
   const list = useRef<HTMLDivElement>(null);
-  const [listPage, setListPage] = useState(1);
-  const lengthPage = 15;
-  const maxPage: number = Math.ceil(peopleList.length / lengthPage);
+  const [numberPage, setNumberPage] = useState(1);
+  const [listPages, setListPages] = useState<ReactElement<any, any>[]>([]);
+  let lengthPage = store.isActive ? 6 : 15;
+  let maxPage = Math.ceil(peopleList.length / lengthPage);
+  let gridList = [];
+
+  useEffect(() => {
+    lengthPage = store.isActive ? 6 : 15;
+    maxPage = Math.ceil(peopleList.length / lengthPage);
+    numberPage > maxPage ? moveLeft() : "";
+    getStylesGrid();
+  }, [store.isActive]);
+
+  const getCSSGridStyles = (numberOfItems: number): CSSProperties => {
+    if (numberOfItems <= 1) {
+      return { gridTemplate: "1fr / 1fr" };
+    } else if (numberOfItems <= 2) {
+      return { gridTemplate: "1fr / repeat(2, 1fr)" };
+    } else if (numberOfItems <= 6) {
+      return { gridTemplate: "repeat(2, 1fr) / repeat(3, 1fr)" };
+    } else if (numberOfItems <= 8) {
+      return { gridTemplate: "repeat(2, 1fr) / repeat(4, 1fr)" };
+    } else if (numberOfItems <= 12) {
+      return { gridTemplate: "repeat(3, 1fr) / repeat(4, 1fr)" };
+    } else {
+      return { gridTemplate: "repeat(3, 1fr) / repeat(5, 1fr)" };
+    }
+  };
+
+  function getStylesGrid() {
+    gridList = [];
+    for (let i = 0; i < maxPage; i++) {
+      const listPage = peopleList
+        .slice(i * lengthPage, (i + 1) * lengthPage)
+        .map((people, index) => (
+          <UserBlock avatar={people.picture} name={people.name} key={index} />
+        ));
+      gridList.push(
+        <ListPage key={i} style={getCSSGridStyles(listPage.length)}>
+          {listPage}
+        </ListPage>
+      );
+    }
+    setListPages(gridList);
+  }
 
   function moveRight() {
     if (!checkDisabled("right")) {
-      list.current ? (list.current.style.left = `-${listPage * 100}%`) : "";
-      setListPage(listPage + 1);
+      list.current ? (list.current.style.left = `-${numberPage * 100}%`) : "";
+      setNumberPage(numberPage + 1);
     }
   }
 
   function moveLeft() {
     if (!checkDisabled("left")) {
       list.current
-        ? (list.current.style.left = `-${(listPage - 2) * 100}%`)
+        ? (list.current.style.left = `-${(numberPage - 2) * 100}%`)
         : "";
-      setListPage(listPage - 1);
+      setNumberPage(numberPage - 1);
     }
   }
 
   function checkDisabled(button: string): boolean {
     switch (button) {
       case "left":
-        return listPage > 1 ? false : true;
+        return numberPage > 1 ? false : true;
       case "right":
-        return listPage < maxPage ? false : true;
+        return numberPage < maxPage ? false : true;
       default:
         return false;
     }
@@ -245,13 +167,9 @@ const UserGrid: React.FC = () => {
       >
         <img src={right} alt="" style={{ transform: "rotate(180deg)" }} />
       </ShowMoreButton>
-      <List ref={list}>
-        {peopleList.map((people) => (
-          <UserBlock avatar={people.picture} name={people.name} />
-        ))}
-      </List>
+      <List ref={list}>{listPages}</List>
       <ShowMoreButton
-        style={{ right: "20px" }}
+        style={{ right: "10px" }}
         onClick={moveRight}
         disabled={checkDisabled("right")}
       >
@@ -259,6 +177,6 @@ const UserGrid: React.FC = () => {
       </ShowMoreButton>
     </Container>
   );
-};
+});
 
 export default UserGrid;

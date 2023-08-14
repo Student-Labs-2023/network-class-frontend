@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import defaultAvatar from "../../../../public/icons/avatar.svg";
-import micro from "../../../../public/icons/microphone-mini.svg";
-import monitor from "../../../../public/icons/monitor-mini.svg";
+import micro from "../../../../public/icons/microphone-mini-white-on.svg";
+import monitor from "../../../../public/icons/monitor-mini-white-off.svg";
 
 const Container = styled.div`
   border-radius: 8px;
-  min-width: 276px;
-  min-height: 170px;
+  min-width: 278.4px;
+  min-height: 169px;
   position: relative;
 `;
 
