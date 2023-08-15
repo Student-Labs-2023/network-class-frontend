@@ -101,7 +101,7 @@ const RoomCard: React.FC<Props> = ({ room }) => {
         <img src={callDisabled} alt="недоступен" />
       )}
       <Access style={room.owner_fullname === user?.name ? {width: "249px"} : {}} >
-        <JoinButton href={room.id} />
+        <JoinButton href={`http://localhost:3000/react-rtc-demo/${room.id}/${user?.email}`} />
         <Tooltip active={tooltipActive}>
           <Button onClick={copyLink}>
             <svg

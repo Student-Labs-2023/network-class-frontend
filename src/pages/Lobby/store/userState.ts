@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { IUser } from "../../../entities/user/api/models";
  
-class User {
+class UserState {
 state = {};
     constructor() {
         makeAutoObservable(this)
@@ -12,4 +12,4 @@ state = {};
     }
 }
  
-export default new User();
+export default new UserState();

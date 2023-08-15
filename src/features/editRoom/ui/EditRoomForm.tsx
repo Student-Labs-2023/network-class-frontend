@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { IRoom } from '../../../entities/room/api/models';
 import { EditThunk } from '../model';
 import { DeleteThunk } from '../model/delete';
+import { observer } from 'mobx-react-lite';
+import { AddUserThunk } from '../../../entities/user/api/addUser';
+import userState from '../../../pages/Lobby/store/userState';
 import styled from 'styled-components';
 import LobbyFormLayout from '../../../widgets/layout/LobbyFormLayout';
 import Input from '../../../shared/ui/Input';
@@ -9,6 +12,7 @@ import SwitchToggle from '../../../shared/ui/switchToggle/SwitchToggle';
 import FormButton from '../../../shared/ui/formButton/FormButton';
 import avatar from '../../../../public/icons/avatar.svg';
 import deleteIcon from '../../../../public/icons/delete.svg';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Form = styled.form`
     display: flex;
@@ -60,16 +64,17 @@ interface Props {
     room: IRoom,
 }
 
-export const EditRoomForm: React.FC<Props> = ({ room }) => {
+export const EditRoomForm: React.FC<Props> = observer(({ room }) => {
+    const { user } = useAuth0();
     const [title, setTitle] = useState(room.title);
     const [isPublic, setIsPublic] = useState(room.isPublic);
 
     function editRoom(event: any) {
-        EditThunk(event, room.id, title, isPublic);
+        EditThunk(event, room, title, isPublic, user?.email);
     }
 
     function deleteRoom() {
-        DeleteThunk(room.id);
+        DeleteThunk(room.id, user?.email);
     }
 
   return (
@@ -94,4 +99,4 @@ export const EditRoomForm: React.FC<Props> = ({ room }) => {
         </Form>
     </LobbyFormLayout>
   )
-}
+})
