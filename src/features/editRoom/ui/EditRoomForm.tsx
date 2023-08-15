@@ -3,8 +3,6 @@ import { IRoom } from '../../../entities/room/api/models';
 import { EditThunk } from '../model';
 import { DeleteThunk } from '../model/delete';
 import { observer } from 'mobx-react-lite';
-import { AddUserThunk } from '../../../entities/user/api/addUser';
-import userState from '../../../pages/Lobby/store/userState';
 import styled from 'styled-components';
 import LobbyFormLayout from '../../../widgets/layout/LobbyFormLayout';
 import Input from '../../../shared/ui/Input';
