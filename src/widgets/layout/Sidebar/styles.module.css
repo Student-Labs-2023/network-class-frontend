@@ -30,12 +30,7 @@
   }
 }
 
-.chat {
-  width: 23.916px;
-  height: 21.742px;
-}
-
-.chat:hover {
+.selected:hover {
   cursor: pointer;
 }
 
@@ -52,38 +47,6 @@
   font-family: var(--font);
   font-size: 16px;
   font-weight: 600;
-}
-
-.switchPanel {
-  display: flex;
-  width: 66px;
-  height: 34px;
-  padding: 0px 4px;
-  align-items: center;
-  gap: 6px;
-  border-radius: 18px;
-  background: var(--white, #fff);
-  box-shadow: 0px 0px 2px 0px #c5ccd5;
-}
-
-.switch {
-  display: flex;
-  width: 28px;
-  height: 28px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 18px;
-  opacity: 0.5;
-}
-
-.switch:hover {
-  cursor: pointer;
-}
-
-.switch.active {
-  background: var(--grey-6, #f9fafe);
-  box-shadow: 0px 0px 2px 0px #c5ccd5;
-  opacity: 1;
 }
 
 .list {

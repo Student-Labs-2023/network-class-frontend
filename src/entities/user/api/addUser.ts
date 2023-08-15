@@ -1,10 +1,10 @@
-import user from "../../../pages/Lobby/store/user";
+import userState from "../../../pages/Lobby/store/userState";
 
 export const AddUserThunk = (fullname: any, photo_url: string, email: any) => {
     const API = String(import.meta.env.VITE_API);
 
     const newUser = {
-        fullname: fullname,
+        full_name: fullname,
         photo_url: photo_url,
         email: email
     }
@@ -20,6 +20,6 @@ export const AddUserThunk = (fullname: any, photo_url: string, email: any) => {
     .then(response => {
         response = JSON.parse(response);
         console.log(response);
-        user.addUser(JSON.parse(response));
+        userState.addUser(JSON.parse(response));
     })
 }

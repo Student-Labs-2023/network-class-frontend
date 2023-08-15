@@ -1,13 +1,19 @@
-export const EditThunk= (event: any, id: number, title: string, isPublic: boolean) => {
+import { IRoom } from '../../../entities/room/api/models';
+
+export const EditThunk= (event: any, room: IRoom, title: string, isPublic: boolean, email: any) => {
     event.preventDefault();
     const API = String(import.meta.env.VITE_API);
 
     const editedRoom = {
-      name: title,
-      public: isPublic,
+      user_email: email,
+      title: title, //change
+      photo_url: room.photo_url,
+      url: room.url,
+      isPublic: isPublic, //change
+      isActive: room.isActive
     }
 
-    fetch(`${API}/channels/${id}`, {
+    fetch(`${API}/channels/${room.id}`, {
       method : 'PUT',
       headers: {
         'Content-type': 'application/json',

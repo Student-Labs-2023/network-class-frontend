@@ -6,7 +6,7 @@ import UserGrid from "../../widgets/UserGrid/UserGrid";
 import { IUser } from "../../shared/api/models";
 import avatar from "../../../public/icons/avatar.svg";
 import Sidebar from "../../widgets/layout/Sidebar/Sidebar";
-import storeParticipants from "./store/participants";
+import storeSidebar from "./store/sidebarState";
 import { observer } from "mobx-react-lite";
 
 const Container = styled.div`
@@ -27,6 +27,7 @@ const Content = styled.div`
   height: 100vh;
   margin: 0 auto;
   position: relative;
+  transition: all 0.3s ease-out;
 `;
 
 const peopleList: IUser[] = [
@@ -181,7 +182,7 @@ const CallPage: React.FC = observer(() => {
     <Container>
       <Content
         style={
-          storeParticipants.isActive
+          storeSidebar.isActive
             ? { width: "calc(100vw - 373px)" }
             : { width: "100vw" }
         }

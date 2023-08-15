@@ -15,9 +15,14 @@ const Container = styled.div`
 interface Props {
   isActive: boolean;
   peopleList: IUser[];
+  displaySwitch?: boolean;
 }
 
-const ParticipantsList: React.FC<Props> = ({ isActive, peopleList }) => {
+const ParticipantsList: React.FC<Props> = ({
+  isActive,
+  peopleList,
+  displaySwitch = false,
+}) => {
   return (
     <Container style={isActive ? { opacity: "1" } : { opacity: "0.5" }}>
       {peopleList.map((people, index) => (
@@ -26,6 +31,7 @@ const ParticipantsList: React.FC<Props> = ({ isActive, peopleList }) => {
           name={people.name}
           isActive={isActive}
           key={index}
+          displaySwitch={displaySwitch}
         />
       ))}
     </Container>
