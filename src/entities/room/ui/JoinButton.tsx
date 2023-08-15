@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Path = styled.path``;
 
-const Button = styled.button`
+const Button = styled.a`
   font-family: var(--font);
   font-size: 18px;
   font-style: normal;
@@ -30,15 +30,13 @@ const Button = styled.button`
 `;
 
 interface Props {
-  href: number,
+  href: string,
 }
 
 const JoinButton: React.FC<Props> = ({ href }) => {
   return (
     <Button
-      onClick={() => {
-        location.href = `/joinlesson/${href}`;
-      }}
+      href={`${href}`}
     >
       <p>Подключиться</p>
       <svg
