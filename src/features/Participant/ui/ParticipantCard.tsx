@@ -51,14 +51,18 @@ interface Props {
   avatar: string;
   name: string;
   isActive: boolean;
+  displaySwitch?: boolean;
 }
 
 export const ParticipantCard: React.FC<Props> = ({
   avatar,
   name,
   isActive,
+  displaySwitch = false,
 }) => {
-  return (
+  return displaySwitch ? (
+    <div></div>
+  ) : (
     <Container>
       <UserInfo>
         <img src={avatar} alt="" style={{ width: "44px", height: "44px" }} />

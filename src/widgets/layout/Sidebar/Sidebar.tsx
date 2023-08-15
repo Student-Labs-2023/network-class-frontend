@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import participiants from "../../../../public/icons/participants.svg";
-import closeParts from "../../../../public/icons/close-participiants.svg";
-import storeParticipants from "../../../pages/CallPageCustomUI/store/participants";
-import storeChat from "../../../pages/CallPageCustomUI/store/chat";
-import chat from "../../../../public/icons/chat.svg";
+import participiantsIcon from "../../../../public/icons/participants.svg";
+import participiantsChat from "../../../../public/icons/participants-gray.svg";
+import close from "../../../../public/icons/close-participiants.svg";
+import store from "../../../pages/CallPageCustomUI/store/sidebarState";
+import chatIcon from "../../../../public/icons/chat.svg";
 import oneSwitch from "../../../../public/icons/one-switch.svg";
 import twoSwitch from "../../../../public/icons/two-switch.svg";
 import { observer } from "mobx-react-lite";
 import styles from "./styles.module.css";
 import { IUser } from "../../../shared/api/models";
 import ParticipantsList from "../../ParticipantsList/ParticipantsList";
+import SwitchPanel from "../../../shared/ui/switchDisplay/SwitchPanel";
 
 const OpenButton = styled.div`
   position: absolute;
@@ -48,87 +49,89 @@ const Container = styled.div`
   background: rgba(255, 255, 255, 0.95);
 `;
 
+const styleSwitch = {
+  width: "66px",
+  height: "34px",
+  borderRadius: "18px",
+};
+
 interface Props {
   peopleList: IUser[];
 }
 
 const Sidebar: React.FC<Props> = observer(({ peopleList }) => {
-  const [active, setActive] = useState(false);
   const [displaySwitch, setDisplaySwitch] = useState(false);
 
   function changeActive() {
-    active
-      ? storeParticipants.closeParticipants()
-      : storeParticipants.openParticipants();
-    setActive(!active);
+    store.isActive
+      ? (store.closeSidebar(), store.selectParticipants())
+      : store.openSidebar();
   }
 
-  function rightDisplay() {
-    setDisplaySwitch(true);
+  function changeDisplay(state: boolean) {
+    setDisplaySwitch(state);
   }
 
-  function leftDisplay() {
-    setDisplaySwitch(false);
-  }
-
-  function openChat() {
-    storeChat.openChat();
+  function changeSelected() {
+    store.selected === "chat" ? store.selectParticipants() : store.selectChat();
   }
 
   return (
     <>
       <OpenButton
-        style={active ? { display: "none" } : { display: "flex" }}
+        style={store.isActive ? { display: "none" } : { display: "flex" }}
         onClick={changeActive}
       >
-        <Image src={participiants} alt="" />
+        <Image src={participiantsIcon} alt="" />
       </OpenButton>
-      <Container style={active ? { display: "flex" } : { display: "none" }}>
+      <Container
+        style={store.isActive ? { display: "flex" } : { display: "none" }}
+      >
         <div className={styles.header}>
-          <div
-            className={styles.close}
-            style={active ? { display: "flex" } : { display: "none" }}
-            onClick={changeActive}
-          >
-            <img className={styles.closeImg} src={closeParts} alt="" />
+          <div className={styles.close} onClick={changeActive}>
+            <img className={styles.closeImg} src={close} alt="" />
           </div>
-          <div className={styles.text}>УЧАСТНИКИ (14)</div>
-          <img className={styles.chat} src={chat} alt="" onClick={openChat} />
-        </div>
-        <div className={styles.joinedHead}>
-          <div className={styles.countJoined}>Подключены (12)</div>
-          <div className={styles.switchPanel}>
-            <div
-              className={
-                displaySwitch
-                  ? styles.switch
-                  : styles.switch + " " + styles.active
-              }
-              onClick={leftDisplay}
-            >
-              <img src={oneSwitch} alt="" />
-            </div>
-            <div
-              className={
-                displaySwitch
-                  ? styles.switch + " " + styles.active
-                  : styles.switch
-              }
-              onClick={rightDisplay}
-            >
-              <img src={twoSwitch} alt="" />
-            </div>
+          <div className={styles.text}>
+            {store.selected === "chat"
+              ? "ЧАТ КЛАССА"
+              : `УЧАСТНИКИ (${peopleList.length})`}
           </div>
+          <img
+            className={styles.selected}
+            src={store.selected === "chat" ? participiantsChat : chatIcon}
+            alt=""
+            onClick={changeSelected}
+          />
         </div>
-        <div className={styles.list}>
-          <ParticipantsList peopleList={peopleList} isActive={true} />
-        </div>
-        <div className={styles.joinedHead}>
-          <div className={styles.countJoined}>Не подключены (2)</div>
-        </div>
-        <div className={styles.list} style={{ maxHeight: "172px" }}>
-          <ParticipantsList peopleList={peopleList} isActive={false} />
-        </div>
+        {store.selected === "chat" ? (
+          <div></div>
+        ) : (
+          <>
+            <div className={styles.joinedHead}>
+              <div className={styles.countJoined}>Подключены (12)</div>
+              <SwitchPanel
+                oneSwitch={oneSwitch}
+                twoSwitch={twoSwitch}
+                style={styleSwitch}
+                state={displaySwitch}
+                onClick={changeDisplay}
+              />
+            </div>
+            <div className={styles.list}>
+              <ParticipantsList
+                peopleList={peopleList}
+                isActive={true}
+                displaySwitch={displaySwitch}
+              />
+            </div>
+            <div className={styles.joinedHead}>
+              <div className={styles.countJoined}>Не подключены (4)</div>
+            </div>
+            <div className={styles.list} style={{ maxHeight: "172px" }}>
+              <ParticipantsList peopleList={peopleList} isActive={false} />
+            </div>
+          </>
+        )}
       </Container>
     </>
   );
