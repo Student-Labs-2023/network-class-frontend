@@ -29,7 +29,7 @@ const functions: IFunction[] = [
     iconActive: settingsActive,
     title: "Настройки",
     description: "Редактировать свой профиль и классы",
-    link: "/",
+    link: "/profile",
   },
 ];
 

@@ -11,13 +11,14 @@ import CallPage from "../pages/CallPage/CallPage";
 import CallPageUI from "../pages/CallPageCustomUI/CallPage";
 import Loader from "../shared/ui/loader/Loader";
 import { useAuth0 } from "@auth0/auth0-react";
+import Profile from "../pages/Profile/Profile";
 
 const App: React.FC = () => {
   const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
 
   useEffect(() => {
     if (!isAuthenticated && !isLoading) {
-      loginWithRedirect(); 
+      loginWithRedirect();
     }
   }, [isLoading]);
 
@@ -33,7 +34,8 @@ const App: React.FC = () => {
           <Route path="/lobby/my" element={<LobbyMy />} />
           <Route path="/joinlesson/:id" element={<JoinCall />} />
           <Route path="/lesson/:id" element={<CallPage />} />
-          <Route path="/lesson-ui" element={<CallPageUI/>} />
+          <Route path="/lesson-ui" element={<CallPageUI />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       )}
     </>
