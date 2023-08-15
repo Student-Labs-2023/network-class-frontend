@@ -13,7 +13,6 @@ const Container = styled.div`
   display: flex;
   width: calc(100% - 20px);
   padding: 24px;
-  justify-content: space-between;
   align-items: center;
 
   border-radius: 10px;
@@ -24,13 +23,13 @@ const Container = styled.div`
 
 const Info = styled.div`
   display: flex;
-  width: 329px;
-  justify-content: space-between;
+  width: 392px;
+  gap: 24px;
   align-items: center;
 `;
 
 const Title = styled.h3`
-  width: 259px;
+  width: 100%;
   font-family: var(--font);
   font-size: 20px;
   font-style: normal;
@@ -41,7 +40,7 @@ const Title = styled.h3`
 `;
 
 const Teacher = styled.h4`
-  min-width: 251px;
+  min-width: 360px;
   font-family: var(--font);
   font-size: 18px;
   font-style: normal;
@@ -56,6 +55,7 @@ const Access = styled.div`
   width: 229px;
   justify-content: space-between;
   align-items: center;
+  margin-left: 129px;
 `;
 
 let Path = styled.path``;
@@ -100,7 +100,7 @@ const RoomCard: React.FC<Props> = ({ room }) => {
       ) : (
         <img src={callDisabled} alt="недоступен" />
       )}
-      <Access style={room.owner_fullname === user?.name ? {width: "249px"} : {}} >
+      <Access>
         <JoinButton href={`https://network-class-videosdk-client.pages.dev/?roomId=${room.id}&email=${user?.email}`} />
         <Tooltip active={tooltipActive}>
           <Button onClick={copyLink}>

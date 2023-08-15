@@ -37,8 +37,7 @@ const Container = styled.div`
 
 const Header = styled.div`
     display: flex;
-    width: 80%;
-    justify-content: space-between;
+    width: 100%;
     align-items: center;
     margin: 0 auto 27px;
 `
@@ -81,10 +80,10 @@ const RoomsList: React.FC<Props> = observer(({ rooms, loading, error }) => {
   return (
     <Container>
         <Header>
-            <Head>Название</Head>
-            <Head>Владелец</Head>
-            <Head>Статус</Head>
-            <Head>Доступ</Head>
+            <Head style={{ marginLeft: 93 }}>Название</Head>
+            <Head style={{ marginLeft: 216 }}>Владелец</Head>
+            <Head style={{ marginLeft: 234 }}>Статус</Head>
+            <Head style={{ marginLeft: 110 }}>Доступ</Head>
         </Header>
         {searchedRooms.length > 0 ?
         <>
