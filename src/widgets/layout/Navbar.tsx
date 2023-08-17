@@ -70,7 +70,14 @@ const Navbar: React.FC = observer(() => {
     }
 
     function addRoom() {
-        roomsFormState.openCreateForm();    
+        if (roomsFormState.state === '' && navbarState.state === 'my') {
+            roomsFormState.openCreateForm();
+            return 0;
+        }
+        if (roomsFormState.state === 'create') {
+            roomsFormState.closeCreateForm();
+            return 0;
+        }    
     }
 
     function editRooms() {

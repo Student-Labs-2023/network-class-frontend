@@ -17,6 +17,7 @@ const Content = styled.div`
   box-shadow: 0px 2px 6px 0px #c5ccd5;
   border-radius: 4px;
 
+  white-space: nowrap;
   font-family: var(--font);
   font-size: 14px;
   font-style: normal;
@@ -38,9 +39,10 @@ const Content = styled.div`
 interface Props {
   active: boolean;
   children: React.ReactNode;
+  message: string;
 }
 
-const Tooltip: React.FC<Props> = ({ active, children }) => {
+const Tooltip: React.FC<Props> = ({ active, children, message }) => {
   return (
     <Container>
       <Content
@@ -50,7 +52,7 @@ const Tooltip: React.FC<Props> = ({ active, children }) => {
             : { opacity: 0, visibility: "hidden" }
         }
       >
-        Ссылка скопирована!
+        {message}
       </Content>
       {children}
     </Container>

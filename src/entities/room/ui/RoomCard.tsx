@@ -102,7 +102,7 @@ const RoomCard: React.FC<Props> = ({ room }) => {
       )}
       <Access>
         <JoinButton href={`https://network-class-videosdk-client.pages.dev/?roomId=${room.id}&email=${user?.email}`} />
-        <Tooltip active={tooltipActive}>
+        <Tooltip active={tooltipActive} message="Ссылка скопирована!">
           <Button onClick={copyLink}>
             <svg
               width="18"
