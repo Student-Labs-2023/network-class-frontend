@@ -1,21 +1,11 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import React, { useState } from "react";
+import React from "react";
 import { styled } from "styled-components";
 import avatar from "../../../../public/icons/avatar.svg";
 import CardButton from "../../../shared/ui/cardButton/CardButton";
-
-const Container = styled.div`
-  font-family: var(--font);
-  color: #000;
-  display: flex;
-  width: 100%;
-  padding: 20px;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 10px;
-  background: var(--white, #fff);
-  box-shadow: 0px 0px 4px 0px #e5eaf8;
-`;
+import ProfileFormLayout from "../../../widgets/layout/ProfileFormLayout";
+import profileFormState from "../../../pages/Profile/store/profileFormState";
+import { observer } from "mobx-react-lite";
 
 const User = styled.div`
   height: 100%;
@@ -69,16 +59,19 @@ const AccessText = styled.a`
   }
 `;
 
-const UserCard: React.FC = () => {
-  const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
+const UserCard: React.FC = observer(() => {
   const { user } = useAuth0();
 
   const sendAccess = () => {
-    setIsEmailConfirmed(true);
+    profileFormState.confirmEmail();
+  };
+
+  const openForm = () => {
+    profileFormState.openEditForm();
   };
 
   return (
-    <Container>
+    <ProfileFormLayout>
       <User>
         <Avatar src={avatar && user?.picture} />
         <Info>
@@ -87,7 +80,7 @@ const UserCard: React.FC = () => {
             <EmailText>{user?.email}</EmailText>
             {!user?.email_verified ? (
               <AccessEmail>
-                {isEmailConfirmed ? (
+                {profileFormState.isEmailConfirmed ? (
                   <div style={{ color: "var(--green, #5bc259)" }}>
                     На вашу почту выслано письмо с подтверждением
                   </div>
@@ -103,9 +96,9 @@ const UserCard: React.FC = () => {
           </Email>
         </Info>
       </User>
-      <CardButton>Изменить</CardButton>
-    </Container>
+      <CardButton onClick={openForm}>Изменить</CardButton>
+    </ProfileFormLayout>
   );
-};
+});
 
 export default UserCard;

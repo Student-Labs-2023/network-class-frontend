@@ -23,10 +23,11 @@ const Button = styled.button`
 
 interface Props {
   children?: string;
+  onClick?: () => void;
 }
 
-const CardButton: React.FC<Props> = ({ children }) => {
-  return <Button>{children}</Button>;
+const CardButton: React.FC<Props> = ({ children, onClick }) => {
+  return <Button onClick={onClick}>{children}</Button>;
 };
 
 export default CardButton;
