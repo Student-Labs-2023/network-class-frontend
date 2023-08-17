@@ -16,8 +16,10 @@ const Join: React.FC = () => {
     <div className={styles.Join}>
       <div className={styles.leftSide}>
         <header className={styles.header}>
-          <img src={logo} alt="Логотип" />
-          <div className={styles.titleApp}>Сетевой учебный класс</div>
+          <div className={styles.logo}>
+            <img src={logo} alt="Логотип" />
+            <div className={styles.titleApp}>Сетевой учебный класс</div>
+          </div>
           <ProfilePanel />
         </header>
         <main className={styles.main}>
