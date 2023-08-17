@@ -1,0 +1,27 @@
+.switchPanel {
+  display: flex;
+  padding: 3px;
+  align-items: center;
+  background: var(--white, #fff);
+  box-shadow: 0px 0px 2px 0px #c5ccd5;
+}
+
+.switch {
+  display: flex;
+  flex: 1 1;
+  aspect-ratio: 1 / 1;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.switch:hover {
+  cursor: pointer;
+}
+
+.switch.active {
+  background: var(--grey-6, #f9fafe);
+  box-shadow: 0px 0px 2px 0px #c5ccd5;
+  opacity: 1;
+}

@@ -11,12 +11,12 @@ const Link = styled.a`
   flex-wrap: nowrap;
   align-items: center;
   border-radius: 8px;
-  border: 2px solid #c5ccd5;
+  border: 2px solid var(--grey_4);
 
   &:hover,
   &:active {
-    border: 2px solid #175ef1;
-    background: #f9fafe;
+    border: 2px solid var(--blue);
+    background: var(--grey_6);
     cursor: pointer;
   }
 `;
@@ -27,17 +27,17 @@ const Icon = styled.img`
 `;
 
 const Title = styled.div`
-  color: #000;
+  color: var(--black);
   text-align: center;
-  font-family: Noto Sans;
+  font-family: var(--font);
   font-size: 22px;
   font-weight: 500;
 `;
 
 const Description = styled.div`
-  color: #a0afc1;
+  color: var(--grey_3);
   text-align: center;
-  font-family: Noto Sans;
+  font-family: var(--font);
   font-size: 14px;
   font-weight: 400;
   line-height: normal;
@@ -57,7 +57,12 @@ export const FunctionBlock: React.FC<Props> = ({ func }) => {
   }
 
   return (
-    <Link href={func.link} onMouseEnter={onHover} onMouseLeave={onHover}>
+    <Link
+      href={func.link}
+      onMouseEnter={onHover}
+      onMouseLeave={onHover}
+      onClick={func.onClick}
+    >
       <Icon src={currentIcon} />
       <Title>{func.title}</Title>
       <Description>{func.description}</Description>

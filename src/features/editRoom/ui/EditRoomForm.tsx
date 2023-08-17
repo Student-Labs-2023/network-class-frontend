@@ -1,32 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { IRoom } from '../../../entities/room/api/models';
+import { EditThunk } from '../model';
+import { DeleteThunk } from '../model/delete';
+import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
+import LobbyFormLayout from '../../../widgets/layout/LobbyFormLayout';
 import Input from '../../../shared/ui/Input';
 import SwitchToggle from '../../../shared/ui/switchToggle/SwitchToggle';
 import FormButton from '../../../shared/ui/formButton/FormButton';
 import avatar from '../../../../public/icons/avatar.svg';
 import deleteIcon from '../../../../public/icons/delete.svg';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Form = styled.form`
-    position: relative;
     display: flex;
-    width: calc(1240px - 52px);
+    width: 100%;
     justify-content: space-between;
     align-items: center;
-    padding: 24px;
-    border-radius: 10px;
-    background: var(--white);
-    margin: 2px auto 25px;
-    &::before {
-        content: "";
-        position: absolute;
-        top: -2px;
-        bottom: -2px;
-        left: -2px;
-        right: -2px;
-        border-radius: 12px;
-        background: linear-gradient(223deg, rgba(255, 178, 64, 0.90) 0%, rgba(216, 97, 196, 0.90) 50.52%, rgba(23, 94, 241, 0.90) 100%);
-        z-index: -1;
-    }
 `
 
 const Info = styled.div`
@@ -45,18 +35,66 @@ const ImageContainer = styled.button`
     border: 2px dashed #175EF1;
 `
 
-export const EditRoomForm: React.FC = () => {
-  return (
-    <Form>
-        <Info>
-            <ImageContainer>
-                <img src={avatar} alt="аватар" />
-            </ImageContainer>
-            <Input type="text" placeholder='Введите название класса' value='математика 10 класс' />
-            <SwitchToggle/>
-            <FormButton>Сохранить</FormButton>
-            <button><img src={deleteIcon} alt="Удалить" /></button>
-        </Info>
-    </Form>
-  )
+const Center = styled.div`
+    display: flex;
+    gap: 10px;
+    align-items: center;
+`
+
+const Text = styled.p`
+    font-family: var(--font);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    color: var(--grey_1);
+    width: 203px;
+`
+
+const Buttons = styled.div`
+    display: flex;
+    width: 159px;
+    justify-content: space-between;
+    align-items: center;
+`
+
+interface Props {
+    room: IRoom,
 }
+
+export const EditRoomForm: React.FC<Props> = observer(({ room }) => {
+    const { user } = useAuth0();
+    const [title, setTitle] = useState(room.title);
+    const [isPublic, setIsPublic] = useState(room.isPublic);
+
+    function editRoom(event: any) {
+        EditThunk(event, room, title, isPublic, user?.email);
+    }
+
+    function deleteRoom() {
+        DeleteThunk(room.id, user?.email);
+    }
+
+  return (
+    <LobbyFormLayout>
+        <Form onSubmit={editRoom}>
+            <Info>
+                <ImageContainer>
+                    <img src={avatar} alt="аватар" />
+                </ImageContainer>
+                <Input type="text" placeholder='Введите название класса' value={title} onChange={e => setTitle(e.target.value)} />
+            </Info>
+            <Center>
+                <SwitchToggle value={isPublic} onClick={() => setIsPublic(!isPublic)}/>
+                <Text>
+                    Ваш класс будет виден всем пользователям приложения
+                </Text>
+            </Center>
+            <Buttons>
+                <FormButton>Сохранить</FormButton>
+                <button type='button' onClick={deleteRoom}><img src={deleteIcon} alt="Удалить" /></button>
+            </Buttons>
+        </Form>
+    </LobbyFormLayout>
+  )
+})

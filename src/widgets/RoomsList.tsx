@@ -1,10 +1,17 @@
-import React from 'react';
-import type { IRoom } from '../shared/api/models';
+import React, { useState, useEffect } from 'react';
+import { IRoom } from '../entities/room/api/models';
+import socket from '../pages/Lobby/store/socket';
 import styled from 'styled-components';
+import { observer } from 'mobx-react-lite';
+import roomsState from '../pages/Lobby/store/roomsState';
 import RoomCard from '../entities/room/ui/RoomCard';
+import { EditRoomForm } from '../features/editRoom';
+import ErrorListMessage from '../shared/ui/ErrorListMessage';
+import ZeroListMessage from '../shared/ui/ZeroListMessage';
 
 const Container = styled.div`
-    width: calc(1196px - 5px);
+    width: 100%;
+    max-width: 1196px;
     padding-right: 5px;
     margin: 0 auto;
     max-height: 642px;
@@ -30,8 +37,7 @@ const Container = styled.div`
 
 const Header = styled.div`
     display: flex;
-    width: 80%;
-    justify-content: space-between;
+    width: 100%;
     align-items: center;
     margin: 0 auto 27px;
 `
@@ -47,24 +53,75 @@ const Head = styled.h3`
 `
 
 interface Props {
-    rooms: IRoom[]
+    rooms: IRoom[],
+    loading?: boolean,
+    error?: string,
 }
 
-const RoomsList: React.FC<Props> = ({ rooms }) => {
+const RoomsList: React.FC<Props> = observer(({ rooms, loading, error }) => {
+    const [searchedRooms, setSearchedRooms] = useState([]);
+
+    const st = socket.state;
+
+    useEffect(() => {
+      st.onopen = function() {
+        st.send('connected');
+      };
+    }, []);
+
+    st.onmessage = function(event) {
+        const response = event.data;
+        setSearchedRooms(JSON.parse(response as any));
+        console.log(searchedRooms);
+    };
 
   return (
     <Container>
         <Header>
-            <Head>Название</Head>
-            <Head>Владелец</Head>
-            <Head>Статус</Head>
-            <Head>Доступ</Head>
+            <Head style={{ marginLeft: 93 }}>Название</Head>
+            <Head style={{ marginLeft: 216 }}>Владелец</Head>
+            <Head style={{ marginLeft: 234 }}>Статус</Head>
+            <Head style={{ marginLeft: 110 }}>Доступ</Head>
         </Header>
-        {rooms.map(room => 
-            <RoomCard room={room} key={room.id}/>    
-        )}
+        {searchedRooms.length > 0 ?
+        <>
+            {searchedRooms.map((room: IRoom) => 
+                <RoomCard room={room} key={room.id}/>
+            )}
+        </> 
+        :
+        <>
+            {loading ? <p>loading...</p> :
+                <>
+                    {error ? <ErrorListMessage>{error}</ErrorListMessage> :
+                        <>
+                        {rooms.length > 0 ?
+                            <>
+                                {roomsState.state === 'edit' ?
+                                    <>
+                                        {rooms.map(room => 
+                                            <EditRoomForm room={room} key={room.id}/>   
+                                        )}
+                                    </>
+                                    :
+                                    <>
+                                        {rooms.map(room => 
+                                            <RoomCard room={room} key={room.id}/>    
+                                        )}
+                                    </>
+                                }
+                            </> 
+                            :
+                            <ZeroListMessage>У Вас пока нет созданных классов</ZeroListMessage>
+                        }
+                        </>
+                    }
+                </>
+            }
+        </>
+        }
     </Container>
   )
-}
+})
 
-export default RoomsList
+export default RoomsList;

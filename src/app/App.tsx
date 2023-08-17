@@ -1,22 +1,41 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import './index.css';
+import React, { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import "./index.css";
 
-import Join from '../pages/Join';
-import Lobby from '../pages/Lobby/Lobby';
-import LobbyAccess from '../pages/Lobby/LobbyAccess';
-import LobbyMy from '../pages/Lobby/LobbyMy';
-
+import Join from "../pages/Join/Join";
+import Lobby from "../pages/Lobby/Lobby";
+import JoinCall from "../pages/JoinCall/JoinCall";
+import CallPage from "../pages/CallPage/CallPage";
+import CallPageUI from "../pages/CallPageCustomUI/CallPage";
+import Loader from "../shared/ui/loader/Loader";
+import { useAuth0 } from "@auth0/auth0-react";
+import Profile from "../pages/Profile/Profile";
 
 const App: React.FC = () => {
+  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
+
+  useEffect(() => {
+    if (!isAuthenticated && !isLoading) {
+      loginWithRedirect();
+    }
+  }, [isLoading]);
+
   return (
-    <Routes>
-      <Route path='/' element={<Join/>}/>
-      <Route path='/lobby' element={<Lobby/>}/>
-      <Route path='/lobby/access' element={<LobbyAccess/>}/>
-      <Route path='/lobby/my' element={<LobbyMy/>}/>
-    </Routes>
-  )
-}
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Routes>
+          <Route path="/" element={<Join />} />
+          <Route path="/lobby" element={<Lobby />} />
+          <Route path="/joinlesson/:id" element={<JoinCall />} />
+          <Route path="/lesson/:id" element={<CallPage />} />
+          <Route path="/lesson-ui" element={<CallPageUI />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      )}
+    </>
+  );
+};
 
 export default App;
