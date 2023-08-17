@@ -28,7 +28,7 @@ export const CopyLink: React.FC = () => {
   }
 
   return (
-    <Tooltip active={tooltipActive}>
+    <Tooltip active={tooltipActive} message="Ссылка скопирована!">
       <Button onClick={copyLink}>
         <svg
           width="18"
