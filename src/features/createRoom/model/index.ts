@@ -1,10 +1,10 @@
 import { IUser } from "../../../shared/api/models";
-import { AddUserThunk } from "../../../entities/user/api/addUser";
 
 export const CreateThunk = (event: any, title: string, isPublic: boolean, user: IUser) => {
     event.preventDefault();
-    AddUserThunk(user?.name, 'test', user?.email);
     const API = String(import.meta.env.VITE_API);
+
+    console.log(user?.email);
 
     const newRoom = {
         title: title,
