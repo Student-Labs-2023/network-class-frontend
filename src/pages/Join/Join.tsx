@@ -8,10 +8,9 @@ import people from "../../../public/icons/people.svg";
 import { EnterClassForm } from "../../features/EnterClass/index.ts";
 import FunctionsList from "../../widgets/FunctionsList/FunctionsList.tsx";
 import functions from "../../widgets/FunctionsList/functionsObject.tsx";
-import ProfilePanel from "../../widgets/ProfilePanel/ProfilePanel.tsx"
+import ProfilePanel from "../../widgets/ProfilePanel/ProfilePanel.tsx";
 
 const Join: React.FC = () => {
-
   return (
     <div className={styles.Join}>
       <div className={styles.leftSide}>
