@@ -60,6 +60,11 @@ input::-ms-clear {
   display: none;
 }
 
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 button {
   cursor: pointer;
 }

@@ -13,7 +13,13 @@ const Input = styled.input`
   height: 18px;
   border-radius: 2px;
   border: 1.5px solid var(--grey-4, #c5ccd5);
-  background: url(${check}) center / 100% 100% no-repeat;
+
+  &:checked {
+    background: var(--blue, #175ef1) url(${check}) center no-repeat;
+  }
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Title = styled.div`
@@ -38,8 +44,9 @@ const CheckBox: React.FC<Props> = ({ text }) => {
     <Container>
       <Input
         type="checkbox"
-        style={selected ? { backgroundColor: "var(--blue, #175EF1)" } : {}}
-        onClick={changeSelected}
+        name="moderator"
+        onChange={changeSelected}
+        checked={selected}
       />
       <Title style={selected ? { color: "var(--blue, #175EF1)" } : {}}>
         {text}

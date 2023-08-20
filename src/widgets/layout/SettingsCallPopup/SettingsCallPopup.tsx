@@ -11,6 +11,8 @@ const Container = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  min-width: 530px;
+  max-height: 100vh;
   padding: 30px;
   display: flex;
   flex-direction: column;
@@ -49,13 +51,18 @@ const HeaderText = styled.div`
   }
 `;
 
-const Settings = styled.div`
+const Settings = styled.form`
+  overflow: auto;
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  align-items: stretch;
   gap: 20px;
+  padding-bottom: 5px;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
 `;
 
 const Buttons = styled.div`
@@ -87,6 +94,14 @@ const SettingsCallPopup: React.FC = observer(() => {
     settingsState.selectClass();
   }
 
+  function saveChanges() {
+    settingsState.closeSettings();
+  }
+
+  function backChanges() {
+    settingsState.closeSettings();
+  }
+
   return (
     <Container>
       <Header>
@@ -103,14 +118,14 @@ const SettingsCallPopup: React.FC = observer(() => {
           Настройки класса
         </HeaderText>
       </Header>
-      <Settings>
+      <Settings onSubmit={saveChanges}>
         {settingsState.selected === "My" && <SettingsMy />}
         {settingsState.selected === "Class" && <SettingsClass />}
+        <Buttons style={{ marginTop: "10px" }}>
+          <FormButton>Сохранить</FormButton>
+          <Back onClick={backChanges}>Отмена</Back>
+        </Buttons>
       </Settings>
-      <Buttons>
-        <FormButton>Сохранить</FormButton>
-        <Back>Отмена</Back>
-      </Buttons>
     </Container>
   );
 });
