@@ -101,7 +101,7 @@ const RoomCard: React.FC<Props> = ({ room }) => {
         <img src={callDisabled} alt="недоступен" />
       )}
       <Access>
-        <JoinButton href={`https://network-class-videosdk-client.pages.dev/?roomId=${room.id}&email=${user?.email}`} />
+        <JoinButton href={`${import.meta.env.VITE_VIDEOSDK_APP}/?roomId=${room.id}&email=${user?.email}`} />
         <Tooltip active={tooltipActive} message="Ссылка скопирована!">
           <Button onClick={copyLink}>
             <svg
