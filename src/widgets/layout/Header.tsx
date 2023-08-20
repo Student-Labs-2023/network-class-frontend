@@ -14,9 +14,7 @@ const Container = styled.div`
   background-color: var(--white);
 `;
 
-const Left = styled.div`
-  
-`;
+const Left = styled.div``;
 
 const Logo = styled.a`
   text-align: center;
