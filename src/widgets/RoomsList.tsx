@@ -75,8 +75,6 @@ const RoomsList: React.FC<Props> = observer(({ rooms, loading, error }) => {
         console.log(searchedRooms);
     };
 
-    console.log(rooms);
-
   return (
     <Container>
         <Header>

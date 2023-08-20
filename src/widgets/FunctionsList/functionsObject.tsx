@@ -10,7 +10,7 @@ const functions: IFunction[] = [
   {
     icon: createClass,
     iconActive: createClassActive,
-    title: "Новый класс",
+    title: "Мои классы",
     description: "Создать свой класс и провести занятие онлайн",
     link: "/lobby",
     onClick: () => {
