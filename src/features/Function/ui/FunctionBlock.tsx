@@ -56,6 +56,8 @@ export const FunctionBlock: React.FC<Props> = ({ func }) => {
       : setCurrentIcon(func.icon);
   }
 
+  console.log(func.link);
+
   return (
     <Link
       href={func.link}
