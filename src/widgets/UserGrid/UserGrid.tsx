@@ -64,7 +64,7 @@ const ShowMoreButton = styled.button`
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
-  z-index: 1000;
+  z-index: 10;
 
   &:hover {
     cursor: pointer;
