@@ -76,6 +76,10 @@ const Divider = styled.div`
 interface Props {
   title: string;
   list: string[];
+  stylesText?: Object;
+  stylesBlock?: Object;
+  stylesList?: Object;
+  stylesContainer?: Object;
 }
 
 export const SelectDevice: React.FC<Props> = (Props) => {
@@ -83,20 +87,29 @@ export const SelectDevice: React.FC<Props> = (Props) => {
   const [selected, setSelected] = useState("По-умолчанию");
 
   return (
-    <Container>
-      <Text>{Props.title}</Text>
-      <SelectBlock onClick={() => setSelectActive(!selectActive)}>
+    <Container style={Props.stylesContainer}>
+      <Text style={Props.stylesText}>{Props.title}</Text>
+      <SelectBlock
+        onClick={() => setSelectActive(!selectActive)}
+        style={Props.stylesBlock}
+      >
         <Selected>
           <Paragraph>{selected}</Paragraph>
         </Selected>
         {selectActive ? <Icon src={open} /> : <Icon src={close} />}
       </SelectBlock>
-      <div style={{ borderTop: "6px solid transparent" }}>
+      <div
+        style={
+          selectActive
+            ? { borderTop: "6px solid transparent" }
+            : { display: "none" }
+        }
+      >
         <SelectList
           style={
             selectActive
-              ? { opacity: 1, visibility: "visible" }
-              : { opacity: 0, visibility: "hidden" }
+              ? { ...Props.stylesList, opacity: 1, visibility: "visible" }
+              : { ...Props.stylesList, opacity: 0, visibility: "hidden" }
           }
         >
           {Props.list.length ? (
@@ -118,7 +131,9 @@ export const SelectDevice: React.FC<Props> = (Props) => {
               </>
             ))
           ) : (
-            <SelectLink>Нет устройств</SelectLink>
+            <SelectLink style={{ pointerEvents: "none" }}>
+              Нет устройств
+            </SelectLink>
           )}
         </SelectList>
       </div>

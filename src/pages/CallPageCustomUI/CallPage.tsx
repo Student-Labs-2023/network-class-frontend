@@ -8,6 +8,8 @@ import avatar from "../../../public/icons/avatar.svg";
 import Sidebar from "../../widgets/layout/Sidebar/Sidebar";
 import storeSidebar from "./store/sidebarState";
 import { observer } from "mobx-react-lite";
+import settingsState from "./store/settingsState";
+import SettingsCallPopup from "../../widgets/layout/SettingsCallPopup/SettingsCallPopup";
 
 const Container = styled.div`
   width: 100%;
@@ -28,6 +30,17 @@ const Content = styled.div`
   margin: 0 auto;
   position: relative;
   transition: all 0.3s ease-out;
+`;
+
+const Overlay = styled.div`
+  background: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+  z-index: 100;
 `;
 
 const peopleList: IUser[] = [
@@ -178,6 +191,10 @@ const peopleList: IUser[] = [
 ];
 
 const CallPage: React.FC = observer(() => {
+  function closePopup() {
+    settingsState.closeSettings();
+  }
+
   return (
     <Container>
       <Content
@@ -188,10 +205,12 @@ const CallPage: React.FC = observer(() => {
         }
       >
         <CallInfo></CallInfo>
-        <UserGrid peopleList={peopleList}/>
+        <UserGrid peopleList={peopleList} />
         <CallControllers />
       </Content>
       <Sidebar peopleList={peopleList} />
+      {settingsState.isActive && <SettingsCallPopup />}
+      {settingsState.isActive && <Overlay onClick={closePopup} />}
     </Container>
   );
 });

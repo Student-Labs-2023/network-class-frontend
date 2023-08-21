@@ -1,10 +1,12 @@
 // import React from 'react';
 import styled from 'styled-components';
+import { observer } from 'mobx-react-lite';
 import { AddRoomButton } from '../../features/AddRoom.tsx/index.ts';
 import { SearchInput } from '../../features/Search/index.ts';
 import roomsFormState from '../../pages/Lobby/store/roomsFormState.ts';
 import roomsState from '../../pages/Lobby/store/roomsState.ts';
 import editIcon from '../../../public/icons/edit.svg';
+import navbarState from '../../pages/Lobby/store/navbarState.ts';
 
 const Container = styled.div`
     display: flex;
@@ -21,7 +23,7 @@ const Left = styled.div`
     justify-content: space-between;
 `
 
-const Link = styled.a`
+const Link = styled.button`
     font-family: var(--font);
     font-size: 20px;
     font-style: normal;
@@ -53,41 +55,50 @@ const EditButton = styled.button`
     box-shadow: 0px 3px 6px 0px #E5EAF8;
 `
 
-interface Props {
-    activeLink: string,
-    allLength?: number,
-    accessLength?: number,
-    myLength?: number,
-}
+const Navbar: React.FC = observer(() => {
 
-const Navbar: React.FC<Props> = ({ activeLink, /*allLength, accessLength, myLength*/ }) => {
+    function openAll() {
+        navbarState.openAll();
+    }
+
+    function openAccess() {
+        navbarState.openAccess();
+    }
+
+    function openMy() {
+        navbarState.openMy();
+    }
 
     function addRoom() {
-        const currentUrl = window.location.href;
-        if (currentUrl !== "http://localhost:5173/lobby/my") {
-            window.location.href = '/lobby/my';
+        if (roomsFormState.state === '' && navbarState.state === 'my') {
             roomsFormState.openCreateForm();
+            return 0;
         }
-        roomsFormState.openCreateForm();    
+        if (roomsFormState.state === 'create') {
+            roomsFormState.closeCreateForm();
+            return 0;
+        }    
     }
 
     function editRooms() {
-        if (roomsState.state === '') {
-            roomsState.openEditForm();
-            return 0;
-        }
-        if (roomsState.state === 'edit') {
-            roomsState.closeEditForm();
-            return 0;
+        if (navbarState.state === 'my') {
+            if (roomsState.state === '') {
+                roomsState.openEditForm();
+                return 0;
+            }
+            if (roomsState.state === 'edit') {
+                roomsState.closeEditForm();
+                return 0;
+            }
         }
     }
 
   return (
     <Container>
         <Left>
-            <Link href='/lobby' style={activeLink === 'all' ? {borderBottom: '2px var(--blue) solid', color: 'var(--blue)'} : {}}>Все классы({121})</Link>
-            <Link href='/lobby/access' style={activeLink === 'access' ? {borderBottom: '2px var(--blue) solid', color: 'var(--blue)'} : {}}>Доступные({5})</Link>
-            <Link href='/lobby/my' style={activeLink === 'my' ? {borderBottom: '2px var(--blue) solid', color: 'var(--blue)'} : {}}>Мои({2})</Link>
+            <Link onClick={openAll} style={navbarState.state === 'all' ? {borderBottom: '2px var(--blue) solid', color: 'var(--blue)'} : {}}>Все классы</Link>
+            <Link onClick={openAccess} style={navbarState.state === 'access' ? {borderBottom: '2px var(--blue) solid', color: 'var(--blue)'} : {}}>Доступные</Link>
+            <Link onClick={openMy} style={navbarState.state === 'my' ? {borderBottom: '2px var(--blue) solid', color: 'var(--blue)'} : {}}>Мои</Link>
         </Left>
         <Right>
             <AddRoomButton onClick={addRoom} />
@@ -98,6 +109,6 @@ const Navbar: React.FC<Props> = ({ activeLink, /*allLength, accessLength, myLeng
         </Right>
     </Container>
   )
-}
+})
 
 export default Navbar;

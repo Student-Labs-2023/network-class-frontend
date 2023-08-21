@@ -10,9 +10,9 @@ const functions: IFunction[] = [
   {
     icon: createClass,
     iconActive: createClassActive,
-    title: "Новый класс",
+    title: "Мои классы",
     description: "Создать свой класс и провести занятие онлайн",
-    link: "/lobby/my",
+    link: "/lobby",
     onClick: () => {
       localStorage.setItem("trigger", "create");
     },
@@ -23,13 +23,16 @@ const functions: IFunction[] = [
     title: "Поиск",
     description: "Найти класс и получить новые знания",
     link: "/lobby",
+    onClick: () => {
+      localStorage.setItem("trigger", "all");
+    },
   },
   {
     icon: settings,
     iconActive: settingsActive,
     title: "Настройки",
     description: "Редактировать свой профиль и классы",
-    link: "/",
+    link: "/profile",
   },
 ];
 

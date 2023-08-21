@@ -9,15 +9,24 @@ import { EnterClassForm } from "../../features/EnterClass/index.ts";
 import FunctionsList from "../../widgets/FunctionsList/FunctionsList.tsx";
 import functions from "../../widgets/FunctionsList/functionsObject.tsx";
 import ProfilePanel from "../../widgets/ProfilePanel/ProfilePanel.tsx"
+import { useAuth0 } from "@auth0/auth0-react";
+import { useAddUser } from "../../entities/user/api/useAddUser.ts";
 
 const Join: React.FC = () => {
+  const { isAuthenticated, user } = useAuth0();
+
+  if (isAuthenticated) {
+    useAddUser(user?.name, 'test', user?.email);
+  }
 
   return (
     <div className={styles.Join}>
       <div className={styles.leftSide}>
         <header className={styles.header}>
-          <img src={logo} alt="Логотип" />
-          <div className={styles.titleApp}>Сетевой учебный класс</div>
+          <div className={styles.logo}>
+            <img src={logo} alt="Логотип" />
+            <div className={styles.titleApp}>Сетевой учебный класс</div>
+          </div>
           <ProfilePanel />
         </header>
         <main className={styles.main}>
