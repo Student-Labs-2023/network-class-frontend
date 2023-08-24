@@ -1,0 +1,71 @@
+.header {
+  display: flex;
+  width: 100%;
+  padding: 0px 14px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text {
+  color: #000;
+  font-family: var(--font);
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.closeImg {
+  width: 24px;
+  height: 18.6px;
+}
+
+.close {
+  display: flex;
+  width: 34px;
+  height: 34px;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.selected:hover {
+  cursor: pointer;
+}
+
+.joinedHead {
+  display: flex;
+  width: 100%;
+  padding: 0px 14px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.countJoined {
+  color: black;
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.list {
+  overflow-y: auto;
+  align-self: flex-start;
+  width: 97%;
+  padding: 0px 14px;
+  flex: 1 0 0;
+  position: relative;
+  top: -3px;
+}
+
+.list::-webkit-scrollbar {
+  width: 5px;
+}
+.list::-webkit-scrollbar-track {
+  opacity: 0;
+}
+.list::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(41, 45, 51, 0.3);
+}

@@ -56,8 +56,15 @@ export const FunctionBlock: React.FC<Props> = ({ func }) => {
       : setCurrentIcon(func.icon);
   }
 
+  console.log(func.link);
+
   return (
-    <Link href={func.link} onMouseEnter={onHover} onMouseLeave={onHover}>
+    <Link
+      href={func.link}
+      onMouseEnter={onHover}
+      onMouseLeave={onHover}
+      onClick={func.onClick}
+    >
       <Icon src={currentIcon} />
       <Title>{func.title}</Title>
       <Description>{func.description}</Description>

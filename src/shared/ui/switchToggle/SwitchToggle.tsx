@@ -1,26 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './styles.module.css';
 import openIcon from '../../../../public/icons/open.svg';
 import closeIcon from '../../../../public/icons/close.svg';
 
-const SwitchToggle: React.FC = () => {
-  const [toggleValue, setToggleValue] = useState(true);
+interface Props {
+  value?: boolean,
+  onClick?: () => void,  
+}
 
-  function changeToggleValue() {
-    setToggleValue(!toggleValue);
-    console.log(toggleValue);
-  }
+const SwitchToggle: React.FC<Props> = ({ value, onClick }) => {
 
   return (
-    <button type='button' onClick={changeToggleValue} className={toggleValue ? styles.switch__open : styles.switch__close}>
-        {toggleValue ? <p className={styles.text__open}>Открытый</p> : <></>}
-        <span className={toggleValue ? styles.slider__open : styles.slider__close}>
-            {toggleValue ? 
+    <button type='button' onClick={onClick} className={value ? styles.switch__open : styles.switch__close}>
+        {value ? <p className={styles.text__open}>Открытый</p> : <></>}
+        <span className={value ? styles.slider__open : styles.slider__close}>
+            {value ? 
                 <img src={openIcon} alt="открытый" /> :
                 <img src={closeIcon} alt='закрытый'/>
             }
         </span>
-        {toggleValue ? <></> : <p className={styles.text__close}>Закрытый</p>}
+        {value ? <></> : <p className={styles.text__close}>Закрытый</p>}
     </button>
   )
 }

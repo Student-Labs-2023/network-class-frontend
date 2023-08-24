@@ -45,6 +45,10 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
+body {
+  background-color: var(--bg);
+}
+
 input,
 button,
 textarea {
@@ -54,6 +58,11 @@ textarea {
 
 input::-ms-clear {
   display: none;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 button {
@@ -88,6 +97,7 @@ h3,
 h4,
 h5,
 h6 {
+  margin: 0;
   font-size: inherit;
   font-weight: 400;
 }

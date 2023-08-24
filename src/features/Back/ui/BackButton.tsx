@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import back from "../../../../public/icons/bracket--code-angle-programming-file-bracket.svg";
-import backActive from "../../../../public/icons/bracket--code-angle-programming-file-bracket-active.svg";
+import back from "../../../../public/icons/arrow-left.svg";
+import backActive from "../../../../public/icons/arrow-left-active.svg";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.a`
@@ -21,8 +21,8 @@ const Container = styled.a`
 `;
 
 const Icon = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 26px;
+  height: 26px;
 `;
 
 const Text = styled.div`

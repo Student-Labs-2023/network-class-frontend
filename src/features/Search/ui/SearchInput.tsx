@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import searchIcon from '../../../../public/icons/search.svg';
+import socket from '../../../pages/Lobby/store/socket';
+import navbarState from '../../../pages/Lobby/store/navbarState';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Container = styled.div`
     display: flex;
@@ -17,7 +20,7 @@ const Container = styled.div`
 
 const Input = styled.input`
     color: var(--grey-3);
-    font-family: Noto Sans;
+    font-family: var(--font);
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -25,11 +28,25 @@ const Input = styled.input`
 `
 
 export const SearchInput: React.FC = () => {
+  const dataRef = useRef<HTMLInputElement>(null);
+  const { user } = useAuth0();
+  const st = socket.state;
+
+  function inputData(data: any) {
+    const message = {
+      filter: navbarState.state,
+      search_string: data,
+      user_email: user?.email
+    }
+    console.log(message);
+    st.send(JSON.stringify(message));
+    st.close(1, "closed");
+  }
 
   return (
     <Container>
-        <img src={searchIcon} alt="поиск" />
-        <Input placeholder='Поиск'/>
+      <img src={searchIcon} alt="поиск" />
+      <Input type='text' placeholder='Название' ref={dataRef} onChange={() => inputData(dataRef.current?.value)}/>
     </Container>
   )
 }

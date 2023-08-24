@@ -6,7 +6,7 @@ let Path = styled.path``;
 
 let Button = styled.button`
   transition: all 0.3s ease;
-  &:hover ${Path} {
+  &:hover path {
     stroke: var(--blue);
   }
 `;
@@ -28,7 +28,7 @@ export const CopyLink: React.FC = () => {
   }
 
   return (
-    <Tooltip active={tooltipActive}>
+    <Tooltip active={tooltipActive} message="Ссылка скопирована!">
       <Button onClick={copyLink}>
         <svg
           width="18"

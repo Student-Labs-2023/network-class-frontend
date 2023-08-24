@@ -3,6 +3,7 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: nowrap;
+  background-color: var(--white);
 }
 
 .leftSide {
@@ -18,8 +19,15 @@
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 100px;
   position: relative;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
 .header > img {
