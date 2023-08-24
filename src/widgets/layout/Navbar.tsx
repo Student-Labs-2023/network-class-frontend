@@ -70,6 +70,7 @@ const Navbar: React.FC = observer(() => {
     }
 
     function addRoom() {
+        navbarState.openMy();
         if (roomsFormState.state === '' && navbarState.state === 'my') {
             roomsFormState.openCreateForm();
             return 0;
@@ -81,6 +82,7 @@ const Navbar: React.FC = observer(() => {
     }
 
     function editRooms() {
+        navbarState.openMy();
         if (navbarState.state === 'my') {
             if (roomsState.state === '') {
                 roomsState.openEditForm();
