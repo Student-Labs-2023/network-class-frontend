@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IRoom } from '../entities/room/api/models';
 import { useRoomsList } from '../entities/room/api/useRoomsList';
 import { useMyRooms } from '../entities/room/api/useMyRooms';
@@ -64,17 +64,21 @@ const RoomsList: React.FC = observer(() => {
 
     const st = socket.state;
 
-    useEffect(() => {
-      st.onopen = function() {
-        st.send('connected');
-      };
-    }, []);
+    // useEffect(() => {
+    //   st.onopen = function() {
+    //     st.send('connected');
+    //   };
+    // }, []);
 
     st.onmessage = function(event) {
         const response = event.data;
         setSearchedRooms(JSON.parse(response as any));
         console.log(searchedRooms);
     };
+
+    useEffect(() => {
+        setSearchedRooms([]);
+    }, [navbarState.state])
 
   return (
     <Container>

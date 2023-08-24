@@ -7,6 +7,8 @@ import roomsFormState from '../../pages/Lobby/store/roomsFormState.ts';
 import roomsState from '../../pages/Lobby/store/roomsState.ts';
 import editIcon from '../../../public/icons/edit.svg';
 import navbarState from '../../pages/Lobby/store/navbarState.ts';
+import socket from '../../pages/Lobby/store/socket.ts';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Container = styled.div`
     display: flex;
@@ -70,6 +72,7 @@ const Navbar: React.FC = observer(() => {
     }
 
     function addRoom() {
+        navbarState.openMy();
         if (roomsFormState.state === '' && navbarState.state === 'my') {
             roomsFormState.openCreateForm();
             return 0;
@@ -81,6 +84,7 @@ const Navbar: React.FC = observer(() => {
     }
 
     function editRooms() {
+        navbarState.openMy();
         if (navbarState.state === 'my') {
             if (roomsState.state === '') {
                 roomsState.openEditForm();
