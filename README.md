@@ -1,3 +1,6 @@
+# Посмотреть демо проекта
+https://network-class.pages.dev/
+
 # Запуск проекта
 
 git clone -b main https://github.com/Student-Labs-2023/network-class-frontend
@@ -34,6 +37,8 @@ Password:
 Qwe123___
 
 примечание:
+аккаунты для демо и локального запуска идентичны
+
 test-student@gmail.com, test-owner@gmail.com  могут искать, подключаться, создавать, редактировать(созданые), удалять каналы
 
 примечания к комнате 304
