@@ -1,6 +1,6 @@
 # Запуск проекта
 
-git clone https://github.com/Student-Labs-2023/network-class-frontend
+git clone -b main https://github.com/Student-Labs-2023/network-class-frontend
 
 cd network-class-frontend
 
