@@ -2,6 +2,8 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import searchIcon from '../../../../public/icons/search.svg';
 import socket from '../../../pages/Lobby/store/socket';
+import navbarState from '../../../pages/Lobby/store/navbarState';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Container = styled.div`
     display: flex;
@@ -27,10 +29,17 @@ const Input = styled.input`
 
 export const SearchInput: React.FC = () => {
   const dataRef = useRef<HTMLInputElement>(null);
+  const { user } = useAuth0();
   const st = socket.state;
 
   function inputData(data: any) {
-    st.send(data);
+    const message = {
+      filter: navbarState.state,
+      search_string: data,
+      user_email: user?.email
+    }
+    console.log(message);
+    st.send(JSON.stringify(message));
     st.close(1, "closed");
   }
 

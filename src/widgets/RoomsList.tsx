@@ -1,5 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IRoom } from '../entities/room/api/models';
+import { useRoomsList } from '../entities/room/api/useRoomsList';
+import { useMyRooms } from '../entities/room/api/useMyRooms';
+import { useAccessRooms } from '../entities/room/api/useAccessRooms';
+import navbarState from '../pages/Lobby/store/navbarState';
 import socket from '../pages/Lobby/store/socket';
 import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
@@ -52,28 +56,29 @@ const Head = styled.h3`
     color: var(--grey_2);
 `
 
-interface Props {
-    rooms: IRoom[],
-    loading?: boolean,
-    error?: string,
-}
-
-const RoomsList: React.FC<Props> = observer(({ rooms, loading, error }) => {
+const RoomsList: React.FC = observer(() => {
     const [searchedRooms, setSearchedRooms] = useState([]);
+    const { rooms, loading, error } = useRoomsList();
+    const { myRooms, myLoading, myError } = useMyRooms();
+    const { accessRooms, accessLoading, accessError } = useAccessRooms();
 
     const st = socket.state;
 
-    useEffect(() => {
-      st.onopen = function() {
-        st.send('connected');
-      };
-    }, []);
+    // useEffect(() => {
+    //   st.onopen = function() {
+    //     st.send('connected');
+    //   };
+    // }, []);
 
     st.onmessage = function(event) {
         const response = event.data;
         setSearchedRooms(JSON.parse(response as any));
         console.log(searchedRooms);
     };
+
+    useEffect(() => {
+        setSearchedRooms([]);
+    }, [navbarState.state])
 
   return (
     <Container>
@@ -83,42 +88,70 @@ const RoomsList: React.FC<Props> = observer(({ rooms, loading, error }) => {
             <Head style={{ marginLeft: 234 }}>Статус</Head>
             <Head style={{ marginLeft: 110 }}>Доступ</Head>
         </Header>
-        {searchedRooms.length > 0 ?
-        <>
-            {searchedRooms.map((room: IRoom) => 
-                <RoomCard room={room} key={room.id}/>
-            )}
-        </> 
-        :
-        <>
-            {loading ? <p>loading...</p> :
+        {navbarState.state === 'all' ? <>
+            {searchedRooms.length > 0 ?
                 <>
-                    {error ? <ErrorListMessage>{error}</ErrorListMessage> :
+                    {searchedRooms.map((room: IRoom) => 
+                        <RoomCard room={room} key={room.id}/>
+                    )}
+                </> 
+                :
+                <>
+                    {loading && <p>loading...</p>}
+                    {error && <ErrorListMessage>{error}</ErrorListMessage>}
+                    {rooms.length > 0 ?
                         <>
-                        {rooms.length > 0 ?
-                            <>
-                                {roomsState.state === 'edit' ?
-                                    <>
-                                        {rooms.map(room => 
-                                            <EditRoomForm room={room} key={room.id}/>   
-                                        )}
-                                    </>
-                                    :
-                                    <>
-                                        {rooms.map(room => 
-                                            <RoomCard room={room} key={room.id}/>    
-                                        )}
-                                    </>
-                                }
-                            </> 
-                            :
-                            <ZeroListMessage>У Вас пока нет созданных классов</ZeroListMessage>
-                        }
-                        </>
+                            {rooms.map(room => 
+                                <RoomCard room={room} key={room.id}/>    
+                            )}
+                        </> :
+                        <ZeroListMessage>У Вас пока нет созданных классов</ZeroListMessage>
                     }
                 </>
-            }
-        </>
+            } </> :
+        navbarState.state === 'access' ? <>
+            {searchedRooms.length > 0 ?
+                <>
+                    {searchedRooms.map((room: IRoom) => 
+                        <RoomCard room={room} key={room.id}/>
+                    )}
+                </> 
+                :
+                <>
+                    {accessLoading && <p>loading...</p>}
+                    {accessError && <ErrorListMessage>{accessError}</ErrorListMessage>}
+                    {accessRooms.length > 0 ?
+                        <>
+                            {accessRooms.map(room => 
+                                <RoomCard room={room} key={room.id}/>    
+                            )}
+                        </> :
+                        <ZeroListMessage>У Вас пока нет созданных классов</ZeroListMessage>
+                    }
+                </>
+            } </> :
+        navbarState.state === 'my' ? <>
+            {searchedRooms.length > 0 ? <>
+                {searchedRooms.map((room: IRoom) => 
+                    <RoomCard room={room} key={room.id}/>
+                )} </> :
+                <>
+                    {myLoading && <p>loading...</p>}
+                    {myError && <ErrorListMessage>{myError}</ErrorListMessage>}
+                        {myRooms.length > 0 ?
+                            <>
+                                {roomsState.state === 'edit' ? <>
+                                    {myRooms.map(room => 
+                                        <EditRoomForm room={room} key={room.id}/>   
+                                    )} </> : <>
+                                    {myRooms.map(room => 
+                                        <RoomCard room={room} key={room.id}/>    
+                                    )} </>
+                                } </> :
+                            <ZeroListMessage>У Вас пока нет созданных классов</ZeroListMessage>
+                        }
+                </>
+            } </> : null
         }
     </Container>
   )
